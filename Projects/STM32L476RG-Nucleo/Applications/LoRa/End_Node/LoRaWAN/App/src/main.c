@@ -268,6 +268,7 @@ int main(void)
 	TOS_NODE_ID = (uint32_t)stm_node_id;
 
 	PRINTF("starting node %x ...\n", TOS_NODE_ID);
+  srand(node_id);
 
 	node_id_allocate = node_id;
 
@@ -325,16 +326,20 @@ static void LORA_HasJoined(void)
 {
 #if( OVER_THE_AIR_ACTIVATION != 0 )
   PRINTF("JOINED\n\r");
-  /* send everytime timer elapses */
-  TimerInit(&TxTimer, OnTxTimerEvent);
-  TimerSetValue(&TxTimer, APP_TX_DUTYCYCLE);
-  OnTxTimerEvent(NULL);
+  // /* send everytime timer elapses */
+  // TimerInit(&TxTimer, OnTxTimerEvent);
+  // TimerSetValue(&TxTimer, APP_TX_DUTYCYCLE);
+  // OnTxTimerEvent(NULL);
 #endif
   LORA_RequestClass(LORAWAN_DEFAULT_CLASS);
 }
 
 static void Send(void *context)
 {
+  // uint32_t time_value = (rand() % 11) + 5;
+  // printf("time_value:%lu\n");
+  // TimerSetValue(&TxTimer, time_value);
+  // TimerStart(&TxTimer);
   if (LORA_JoinStatus() != LORA_SET)
   {
     PRINTF("LORA_Join\n");
@@ -426,6 +431,10 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
+  srand(gpi_tick_fast_native());
+  rand();
+  uint8_t time_value = (rand() % 11) + 10;
+  TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
   TRACE_MSG("rx_time:%lu, tx_time: %lu\n", gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_LISTEN)));
