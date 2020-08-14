@@ -10,17 +10,33 @@
 #include "stm32l4xx_hal.h"
 #include "vcom.h"
 // //**************************************************************************************************
-void init_GPS(void);
-void GPIO_Enable_IRQ(uint16_t GPIO_Pin);
-void GPIO_Disable_IRQ(uint16_t GPIO_Pin);
-void read_GPS(void);
-int32_t operation_time(void);
-uint32_t operation_time_ms(void);
-void clear_pps_count(void);
-int32_t calculate_time_diff(uint8_t given_hour, uint8_t given_minute, uint8_t given_second,
-                            uint8_t begin_hour, uint8_t begin_minute, uint8_t begin_second);
-void wait_til_gps_time(uint8_t given_hour, uint8_t given_minute, uint8_t given_second);
 
+typedef struct Chirp_Time_tag
+{
+	uint16_t		chirp_year;
+	uint8_t			chirp_month;
+	uint8_t			chirp_date;
+	uint8_t			chirp_day;
+	uint8_t			chirp_hour;
+	uint8_t			chirp_min;
+	uint8_t			chirp_sec;
+} Chirp_Time;
+
+typedef struct LoRa_TX_CONFIG_tag
+{
+    unsigned int    tx_freq;
+	uint8_t			tx_num;
+	uint8_t			chirp_hour;
+	uint8_t			chirp_min;
+	uint8_t			chirp_sec;
+} LoRa_TX_CONFIG;
+// 10 bytes
+
+extern Chirp_Time chirp_time;
+extern unsigned int tx_config_freq;
+
+void init_GPS(void);
+void read_GPS(void);
 #endif /* __GPS_DATA_H__ */
 
 

@@ -2,7 +2,6 @@
 //**** Includes ************************************************************************************
 #include "test_config.h"
 
-#if GPS_DATA
 
 #include "gps.h"
 #include "hw.h"
@@ -13,25 +12,16 @@
 #include "lora.h"
 
 UART_HandleTypeDef huart3;
-extern uint8_t join_flag;
 
-extern uint8_t test_round;
-
-#define UNIX_TIME_LENGTH                17
+#define UNIX_TIME_LENGTH                10
 //**************************************************************************************************
 //***** Local (Static) Variables *******************************************************************
 
 uint8_t aRxBuffer[UNIX_TIME_LENGTH];
-int32_t now_second = 0;
-RTC_TimeTypeDef stimestructure;
-RTC_DateTypeDef sdatestructure;
-RTC_TimeTypeDef stimestructure_temp;
-uint32_t ts_ms;
 volatile uint16_t pps_count;
-extern uint8_t ECHO_END_FLAG;
 
-int32_t the_given_second;
-
+Chirp_Time chirp_time;
+unsigned int tx_config_freq;
 //**************************************************************************************************
 //***** Local Functions ****************************************************************************
 // unix timestamp to time string
@@ -69,23 +59,24 @@ static unsigned char applib_dt_last_day_of_mon(unsigned char month, unsigned sho
 }
 
 
-static uint16_t change_unix(long ts, uint16_t begin_hour, uint16_t begin_minute, uint16_t begin_second)
+static void change_unix(long ts, Chirp_Time *gps_time)
 {
     int year = 0;
     int month = 0;
+    int date = 0;
     int day = 0;
     int hour = 0;
     int minute = 0;
     int second = 0;
 
-    int days = ts / SEC_PER_DAY;
+    int dates = ts / SEC_PER_DAY;
     int yearTmp = 0;
     int dayTmp = 0;
-    for (yearTmp = UTC_BASE_YEAR; days > 0; yearTmp++)
+    for (yearTmp = UTC_BASE_YEAR; dates > 0; yearTmp++)
     {
         dayTmp = (DAY_PER_YEAR + applib_dt_is_leap_year(yearTmp));
-        if (days >= dayTmp)
-            days -= dayTmp;
+        if (dates >= dayTmp)
+            dates -= dayTmp;
         else
             break;
     }
@@ -95,45 +86,59 @@ static uint16_t change_unix(long ts, uint16_t begin_hour, uint16_t begin_minute,
     for (monthTmp = 1; monthTmp < MONTH_PER_YEAR; monthTmp++)
     {
         dayTmp = applib_dt_last_day_of_mon(monthTmp, year);
-        if (days >= dayTmp)
-            days -= dayTmp;
+        if (dates >= dayTmp)
+            dates -= dayTmp;
         else
             break;
     }
     month = monthTmp;
 
-    day = days + 1;
+    date = dates + 1;
 
     int secs = ts % SEC_PER_DAY;
     hour = secs / SEC_PER_HOUR;
     hour += 8;
-    if(hour >= 24)
+    if (hour >= 24)
     {
         hour -= 24;
-        day ++;
+        date++;
+        dayTmp = applib_dt_last_day_of_mon(monthTmp, year);
+        if (date > dayTmp)
+        {
+            date -= dayTmp;
+            if (month == 12)
+                yearTmp = yearTmp + 1;
+
+            monthTmp = (monthTmp + 1) % MONTH_PER_YEAR;
+        }
     }
+    year = yearTmp;
+    month = monthTmp;
+
     secs %= SEC_PER_HOUR;
     minute = secs / SEC_PER_MIN;
     second = secs % SEC_PER_MIN;
 
-    PRINTF("%d-%d-%d %d:%d:%d\n", year, month, day, hour, minute, second);
-    int32_t past_hour_second = ((int32_t)hour - begin_hour) * 3600;
-    int32_t past_minute_second = ((int32_t)minute - begin_minute) * 60;
-    int32_t past_second_second = ((int32_t)second - begin_second);
-    int32_t past_second = past_hour_second + past_minute_second + past_second_second;
+    if (monthTmp == 1 || monthTmp == 2)
+    {
+        monthTmp += 12;
+        yearTmp--;
+    }
+    day =  (date + 2 * monthTmp + 3 * (monthTmp + 1) / 5 + yearTmp + yearTmp / 4 - yearTmp / 100 + yearTmp / 400) % 7 + 1;
 
-    PRINTF("%lu\n", past_second);
-    return past_second;
+    gps_time->chirp_year = (uint16_t)year;
+    gps_time->chirp_month = (uint8_t)month;
+    gps_time->chirp_date = (uint8_t)date;
+    gps_time->chirp_day = (uint8_t)day;
+    gps_time->chirp_hour = (uint8_t)hour;
+    gps_time->chirp_min = (uint8_t)minute;
+    gps_time->chirp_sec = (uint8_t)second;
+    PRINTF("%d-%d-%d %d:%d:%d week: %d\n", gps_time->chirp_year, gps_time->chirp_month, gps_time->chirp_date, gps_time->chirp_hour, gps_time->chirp_min, gps_time->chirp_sec, gps_time->chirp_day);
 }
-
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	HAL_GPIO_WritePin(GPS_TRIGGER_Port, GPS_TRIGGER_Pin, GPIO_PIN_RESET);
-    ts_ms = (aRxBuffer[13]-48) * 100 + (aRxBuffer[14]-48) * 10 + aRxBuffer[15]-48;
-    // PRINTF("%s\n", aRxBuffer);
-    now_second = change_unix(strtol(aRxBuffer,NULL,10), GPS_BEGIN_HOUR, GPS_BEGIN_MINUTE, GPS_BEGIN_SECOND);
-    // __HAL_UART_DISABLE_IT(&huart3, UART_IT_RXNE);
+    change_unix(strtol(aRxBuffer, NULL, 10) - 1, &chirp_time);
     __HAL_UART_DISABLE(&huart3);
 }
 
@@ -141,12 +146,6 @@ void gps_pps_IRQ()
 {
     PRINTF("pps:%d\n", pps_count);
     pps_count++;
-    if((join_flag) && (pps_count >= MX_SESSION_LENGTH))
-    {
-        ECHO_END_FLAG = 1;
-        return;
-    }
-    update_packet(pps_count);
 }
 
 //**************************************************************************************************
@@ -190,88 +189,22 @@ void init_GPS(void)
     HAL_GPIO_Init(GPS_PPS_Port, &GPIO_InitStruct);
 
     HW_GPIO_SetIrq( GPS_PPS_Port, GPS_PPS_Pin, 0, gps_pps_IRQ );
-
-    the_given_second = calculate_time_diff(GPS_ECHO_HOUR, GPS_ECHO_MINUTE, GPS_ECHO_SECOND,
-                                    GPS_BEGIN_HOUR, GPS_BEGIN_MINUTE, GPS_BEGIN_SECOND);
-}
-
-void GPIO_Enable_IRQ(uint16_t GPIO_Pin)
-{
-    IRQn_Type IRQnb;
-
-    IRQnb = MSP_GetIRQn( GPIO_Pin );
-
-    HAL_NVIC_DisableIRQ( IRQnb );
-}
-
-void GPIO_Disable_IRQ(uint16_t GPIO_Pin)
-{
-    IRQn_Type IRQnb;
-
-    IRQnb = MSP_GetIRQn( GPIO_Pin );
-
-    HAL_NVIC_DisableIRQ( IRQnb );
 }
 
 void read_GPS(void)
 {
+    __HAL_UART_DISABLE(&huart3);
     __HAL_UART_ENABLE(&huart3);
-	HAL_UART_Receive_IT(&huart3, (uint8_t*)aRxBuffer,UNIX_TIME_LENGTH);
-	HAL_GPIO_WritePin(GPS_TRIGGER_Port, GPS_TRIGGER_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPS_TRIGGER_Port, GPS_TRIGGER_Pin, GPIO_PIN_RESET);
-}
+    memset(aRxBuffer, 0, sizeof(aRxBuffer));
+    memset(&chirp_time, 0, sizeof(chirp_time));
 
-//**************************************************************************************************
-int32_t operation_time(void)
-{
-    return now_second;
-}
+    HAL_UART_Receive_IT(&huart3, (uint8_t *)aRxBuffer, sizeof(aRxBuffer));
 
-uint32_t operation_time_ms(void)
-{
-    return ts_ms;
-}
-
-void clear_pps_count(void)
-{
-    pps_count = 0;
-}
-
-int32_t calculate_time_diff(uint8_t given_hour, uint8_t given_minute, uint8_t given_second,
-                            uint8_t begin_hour, uint8_t begin_minute, uint8_t begin_second)
-{
-    int32_t past_hour_second = ((int32_t)given_hour - (int32_t)begin_hour) * 3600;
-    int32_t past_minute_second = ((int32_t)given_minute - (int32_t)begin_minute) * 60;
-    int32_t past_second_second = ((int32_t)given_second - (int32_t)begin_second);
-    int32_t past_second = past_hour_second + past_minute_second + past_second_second;
-    // PRINTF("%d\n", past_second);
-
-    return past_second;
-}
-
-
-void wait_til_gps_time(uint8_t given_hour, uint8_t given_minute, uint8_t given_second)
-{
-    read_GPS();
-    uint32_t delay_ms = operation_time_ms();
-    DelayMs(1000 - delay_ms);
-
-    int32_t now_second = operation_time() - 1;
-    static int32_t diff_gps_second;
-    diff_gps_second = now_second - the_given_second - test_round * MX_SESSION_LENGTH_INTERVAL;
-    PRINTF("diff time:%d\n", diff_gps_second);
-
-    if (diff_gps_second < 0)
-    {
-        // PRINTF("abs:%u\n", abs(diff_gps_second));
-        pps_count = 0;
-        while(((int32_t)(abs(diff_gps_second))) >= pps_count - 1);
-    }
-    pps_count = 0;
+    HAL_GPIO_WritePin(GPS_TRIGGER_Port, GPS_TRIGGER_Pin, GPIO_PIN_SET);
+    HAL_Delay(10);
+    HAL_GPIO_WritePin(GPS_TRIGGER_Port, GPS_TRIGGER_Pin, GPIO_PIN_RESET);
 }
 
 //**************************************************************************************************
 //**************************************************************************************************
-
-#endif	// GPS_DATA
 

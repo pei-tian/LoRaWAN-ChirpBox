@@ -33,6 +33,7 @@
 #include "RegionCommon.h"
 #include "RegionCN470.h"
 #include "util_console.h"
+#include "gps.h"
 
 // Definitions
 #define CHANNELS_MASK_SIZE              6
@@ -557,6 +558,8 @@ bool RegionCN470TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
 
     Radio.SetTxConfig( MODEM_LORA, phyTxPower, 0, 0, phyDr, 1, 8, false, true, 0, 0, false, 4000 );
     TVL1( PRINTF( "TX on freq %d Hz at DR %d\n\r", NvmCtx.Channels[txConfig->Channel].Frequency, txConfig->Datarate );)
+    PRINTF( "TX on freq %d Hz at DR %d\n\r", NvmCtx.Channels[txConfig->Channel].Frequency, txConfig->Datarate );
+    tx_config_freq = NvmCtx.Channels[txConfig->Channel].Frequency / 1000;
 
     // Setup maximum payload length of the radio driver
     Radio.SetMaxPayloadLength( MODEM_LORA, txConfig->PktLen );

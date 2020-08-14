@@ -34,7 +34,9 @@
 #include "uart.h"
 #include "trace_flash.h"
 #include <stdlib.h>
-
+#include "ll_flash.h"
+#include "flash_if.h"
+// #include <stdint.h>
 //**************************************************************************************************
 //***** Local (Static) Variables *******************************************************************
 /*---------------------------------------------------------------------------*/
@@ -146,7 +148,7 @@ extern LPTIM_HandleTypeDef hlptim1;
 
 uint8_t ECHO_END_FLAG = 0;
 
-
+LoRa_TX_CONFIG tx_config[256];
 /*!
  * User application data structure
  */
@@ -254,6 +256,8 @@ int main(void)
   MX_GPIO_Init();
 	MX_LPTIM1_Init();
   HAL_LPTIM_Start(&hlptim1);
+  init_GPS();
+  read_GPS();
 
   /* USER CODE BEGIN 1 */
   /* USER CODE END 1 */
@@ -326,6 +330,7 @@ static void LORA_HasJoined(void)
 {
 #if( OVER_THE_AIR_ACTIVATION != 0 )
   PRINTF("JOINED\n\r");
+  LL_FLASH_PageErase(RESET_PAGE);
   // /* send everytime timer elapses */
   // TimerInit(&TxTimer, OnTxTimerEvent);
   // TimerSetValue(&TxTimer, APP_TX_DUTYCYCLE);
@@ -431,7 +436,7 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
-  uint8_t time_value = (rand() % 51) + 10;
+  uint8_t time_value = (rand() % 16) + 10;
   printf("time_value:%lu\n", time_value);
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
@@ -442,15 +447,6 @@ static void OnTxTimerEvent(void *context)
 static int sensor_send(void)
 {
   Tx_num++;
-  PRINTF("Tx_num:%d\n", Tx_num);
-  // if(Tx_num >= MAX_TX_NUM)
-  // {
-  //   Tx_num = 0;
-  //   break_flag = 1;
-  // PRINTF("break_flag:%d\n", break_flag);
-  //   TimerStop(&TxTimer);
-  //   return 0;
-  // }
   AppData.Port = LORAWAN_APP_PORT;
   uint32_t i = 0;
   send_count++;
@@ -474,6 +470,19 @@ static int sensor_send(void)
   PRINTF("\n");
 
   LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE);
+  read_GPS();
+  HAL_Delay(20);
+  PRINTF("Tx_num:%d, %lu, %lu, %lu, %lu, %lu\n", Tx_num, tx_config_freq, chirp_time.chirp_date, chirp_time.chirp_hour, chirp_time.chirp_min, chirp_time.chirp_sec);
+  tx_config[Tx_num - 1].tx_num = Tx_num;
+  tx_config[Tx_num - 1].tx_freq = tx_config_freq;
+  tx_config[Tx_num - 1].chirp_hour = chirp_time.chirp_hour;
+  tx_config[Tx_num - 1].chirp_min = chirp_time.chirp_min;
+  tx_config[Tx_num - 1].chirp_sec = chirp_time.chirp_sec;
+  if (Tx_num<=256)
+  {
+    LL_FLASH_Program64s(RESET_FLASH_ADDRESS + (Tx_num - 1) * sizeof(LoRa_TX_CONFIG), (uint32_t *)(&tx_config[Tx_num - 1]), (sizeof(LoRa_TX_CONFIG)/ sizeof(uint32_t)));
+  }
+
     return 0;
 }
 
