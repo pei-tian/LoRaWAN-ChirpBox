@@ -268,7 +268,7 @@ int main(void)
 	TOS_NODE_ID = (uint32_t)stm_node_id;
 
 	PRINTF("starting node %x ...\n", TOS_NODE_ID);
-  srand(node_id);
+  srand(TOS_NODE_ID);
 
 	node_id_allocate = node_id;
 
@@ -431,9 +431,8 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
-  srand(gpi_tick_fast_native());
-  rand();
-  uint8_t time_value = (rand() % 21) + 80;
+  uint8_t time_value = (rand() % 51) + 10;
+  printf("time_value:%lu\n", time_value);
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
