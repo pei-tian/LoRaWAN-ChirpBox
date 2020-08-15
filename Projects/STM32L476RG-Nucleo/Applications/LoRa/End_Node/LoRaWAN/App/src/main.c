@@ -436,7 +436,7 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
-  uint8_t time_value = (rand() % 16) + 10;
+  uint8_t time_value = (rand() % 41) + 100;
   printf("time_value:%lu\n", time_value);
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
@@ -451,23 +451,23 @@ static int sensor_send(void)
   uint32_t i = 0;
   send_count++;
   TRACE_MSG("send:%lu\n", send_count);
-  AppData.Buff[i++] = send_count >> 8;
-  AppData.Buff[i++] = send_count;
-  AppData.Buff[i++] = 0;
+  // AppData.Buff[i++] = send_count >> 8;
+  // AppData.Buff[i++] = send_count;
+  // AppData.Buff[i++] = 0;
   AppData.Buff[i++] = 0xff;
-  AppData.Buff[i++] = TOS_NODE_ID >> 24;
-  AppData.Buff[i++] = TOS_NODE_ID >> 16;
-  AppData.Buff[i++] = TOS_NODE_ID >> 8;
-  AppData.Buff[i++] = TOS_NODE_ID;
+  // AppData.Buff[i++] = TOS_NODE_ID >> 24;
+  // AppData.Buff[i++] = TOS_NODE_ID >> 16;
+  // AppData.Buff[i++] = TOS_NODE_ID >> 8;
+  // AppData.Buff[i++] = TOS_NODE_ID;
 
   AppData.BuffSize = i;
-  PRINTF("sensor AppData:\n");
-  for ( i = 0; i < AppData.BuffSize; i++)
-  {
-    /* code */
-    PRINTF("%d ", AppData.Buff[i]);
-  }
-  PRINTF("\n");
+  PRINTF("sensor AppData\n");
+  // for ( i = 0; i < AppData.BuffSize; i++)
+  // {
+  //   /* code */
+  //   PRINTF("%d ", AppData.Buff[i]);
+  // }
+  // PRINTF("\n");
 
   LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE);
   read_GPS();
