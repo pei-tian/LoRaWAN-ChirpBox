@@ -356,7 +356,7 @@ static void Send(void *context)
   else if(LORA_JoinStatus() == LORA_SET)
   {
     PRINTF("sensor_send\n");
-    lora_tx_rate(0);
+    lora_tx_rate(5);
     sensor_send();
     return;
   }
@@ -436,7 +436,7 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
-  uint8_t time_value = (rand() % 41) + 100;
+  uint8_t time_value = (rand() % 11) + 10;
   printf("time_value:%lu\n", time_value);
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
