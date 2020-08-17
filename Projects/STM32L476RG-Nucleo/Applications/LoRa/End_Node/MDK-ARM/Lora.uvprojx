@@ -676,11 +676,6 @@
               <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
-              <FileName>evaluation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\evaluation.c</FilePath>
-            </File>
-            <File>
               <FileName>energest.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\energest.c</FilePath>
@@ -1675,11 +1670,6 @@
               <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
-              <FileName>evaluation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\evaluation.c</FilePath>
-            </File>
-            <File>
               <FileName>energest.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\energest.c</FilePath>
@@ -2625,11 +2615,6 @@
               <FileName>dataset.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
-            </File>
-            <File>
-              <FileName>evaluation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\evaluation.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
@@ -3626,11 +3611,6 @@
               <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
-              <FileName>evaluation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\evaluation.c</FilePath>
-            </File>
-            <File>
               <FileName>energest.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\energest.c</FilePath>
@@ -4625,11 +4605,6 @@
               <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
-              <FileName>evaluation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\evaluation.c</FilePath>
-            </File>
-            <File>
               <FileName>energest.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\energest.c</FilePath>
@@ -5622,11 +5597,6 @@
               <FileName>dataset.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
-            </File>
-            <File>
-              <FileName>evaluation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\evaluation.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>

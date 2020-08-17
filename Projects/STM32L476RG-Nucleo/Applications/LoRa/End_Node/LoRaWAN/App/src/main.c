@@ -436,7 +436,8 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
-  uint8_t time_value = (rand() % 11) + 10;
+  // uint8_t time_value = (rand() % 11) + 10;
+  uint8_t time_value = 5;
   printf("time_value:%lu\n", time_value);
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
