@@ -50,6 +50,7 @@ uint32_t stm_node_id = 0;
 
 unsigned char node_mac[8];
 volatile uint32_t device_id[3];
+uint32_t lora_rx_count_rece;
 /*---------------------------------------------------------------------------*/
 void node_id_restore(uint8_t *id)
 {
@@ -105,7 +106,7 @@ static uint16_t send_count = 0;
  * LoRaWAN Default data Rate Data Rate
  * @note Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
  */
-#define LORAWAN_DEFAULT_DATA_RATE                   DR_0
+#define LORAWAN_DEFAULT_DATA_RATE                   DR_5
 /*!
  * LoRaWAN application port
  * @note do not use 224. It is reserved for certification
@@ -114,7 +115,8 @@ static uint16_t send_count = 0;
 /*!
  * LoRaWAN default endNode class port
  */
-#define LORAWAN_DEFAULT_CLASS                       CLASS_A
+// #define LORAWAN_DEFAULT_CLASS                       CLASS_A
+#define LORAWAN_DEFAULT_CLASS                       CLASS_C
 /*!
  * LoRaWAN default confirm state
  */
@@ -259,6 +261,7 @@ int main(void)
   init_GPS();
   read_GPS();
 
+  lora_rx_count_rece = 0;
   /* USER CODE BEGIN 1 */
   /* USER CODE END 1 */
 
@@ -437,7 +440,7 @@ static void OnTxTimerEvent(void *context)
 {
   PRINTF("OnTxTimerEvent\n");
   // uint8_t time_value = (rand() % 11) + 10;
-  uint8_t time_value = 5;
+  uint8_t time_value = 10;
   printf("time_value:%lu\n", time_value);
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
@@ -474,13 +477,13 @@ static int sensor_send(void)
   read_GPS();
   HAL_Delay(20);
   PRINTF("Tx_num:%d, %lu, %lu, %lu, %lu, %lu\n", Tx_num, tx_config_freq, chirp_time.chirp_date, chirp_time.chirp_hour, chirp_time.chirp_min, chirp_time.chirp_sec);
-  tx_config[Tx_num - 1].tx_num = Tx_num;
-  tx_config[Tx_num - 1].tx_freq = tx_config_freq;
-  tx_config[Tx_num - 1].chirp_hour = chirp_time.chirp_hour;
-  tx_config[Tx_num - 1].chirp_min = chirp_time.chirp_min;
-  tx_config[Tx_num - 1].chirp_sec = chirp_time.chirp_sec;
   if (Tx_num<=256)
   {
+    tx_config[Tx_num - 1].tx_num = Tx_num;
+    tx_config[Tx_num - 1].tx_freq = tx_config_freq;
+    tx_config[Tx_num - 1].chirp_hour = chirp_time.chirp_hour;
+    tx_config[Tx_num - 1].chirp_min = chirp_time.chirp_min;
+    tx_config[Tx_num - 1].chirp_sec = chirp_time.chirp_sec;
     LL_FLASH_Program64s(RESET_FLASH_ADDRESS + (Tx_num - 1) * sizeof(LoRa_TX_CONFIG), (uint32_t *)(&tx_config[Tx_num - 1]), (sizeof(LoRa_TX_CONFIG)/ sizeof(uint32_t)));
   }
 
@@ -508,6 +511,7 @@ static void LORA_ConfirmClass(DeviceClass_t Class)
   AppData.Port = LORAWAN_APP_PORT;
 
   LORA_send(&AppData, LORAWAN_UNCONFIRMED_MSG);
+  TimerStop(&TxTimer);
 }
 
 static void LORA_TxNeeded(void)

@@ -22,6 +22,7 @@
 #include "LoRaMac.h"
 #include "lora.h"
 #include "lora-test.h"
+#include "trace_flash.h"
 
 /*!
  *  Select either Device_Time_req or Beacon_Time_Req following LoRaWAN version
@@ -94,6 +95,7 @@ static LoRaMainCallback_t *LoRaMainCallbacks;
 extern lora_AppData_t AppData;
 
 
+extern uint32_t lora_rx_count_rece;
 
 
 
@@ -189,6 +191,12 @@ static void McpsConfirm( McpsConfirm_t *mcpsConfirm )
     TraceUpLinkFrame(mcpsConfirm);
 }
 
+void lora_rx_count()
+{
+  lora_rx_count_rece++;
+  TRACE_MSG("lora_rx_count_rece:%lu\n", lora_rx_count_rece);
+}
+
 /*!
  * \brief   MCPS-Indication event function
  *
@@ -198,6 +206,11 @@ static void McpsConfirm( McpsConfirm_t *mcpsConfirm )
 static void McpsIndication( McpsIndication_t *mcpsIndication )
 {
     TVL2( PRINTNOW(); PRINTF("APP> McpsInd STATUS: %s\r\n", EventInfoStatusStrings[mcpsIndication->Status] );)
+          AppData.Port = mcpsIndication->Port;
+          AppData.BuffSize = mcpsIndication->BufferSize;
+          AppData.Buff = mcpsIndication->Buffer;
+
+lora_rx_count();
 
     lora_AppData_t AppData;
     if( mcpsIndication->Status != LORAMAC_EVENT_INFO_STATUS_OK )
