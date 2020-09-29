@@ -573,7 +573,7 @@ void LORA_Join( void)
     mlmeReq.Type = MLME_JOIN;
     // mlmeReq.Req.Join.Datarate = LoRaParamInit->TxDatarate;
     // TODO:TP
-    mlmeReq.Req.Join.Datarate = DR_0;
+    mlmeReq.Req.Join.Datarate = DR_5;
 
     JoinParameters = mlmeReq.Req.Join;
 
