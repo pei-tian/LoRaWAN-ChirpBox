@@ -115,8 +115,8 @@ static uint16_t send_count = 0;
 /*!
  * LoRaWAN default endNode class port
  */
-// #define LORAWAN_DEFAULT_CLASS                       CLASS_A
-#define LORAWAN_DEFAULT_CLASS                       CLASS_C
+#define LORAWAN_DEFAULT_CLASS                       CLASS_A
+// #define LORAWAN_DEFAULT_CLASS                       CLASS_C
 /*!
  * LoRaWAN default confirm state
  */

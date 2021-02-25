@@ -371,6 +371,7 @@ void RegionCN470InitDefaults( InitDefaultsParams_t* params )
             for( uint8_t i = 0; i < CN470_MAX_NB_CHANNELS; i++ )
             {
 //                NvmCtx.Channels[i].Frequency = 470300000 + i * 200000;
+                // NvmCtx.Channels[i].Frequency = 486500000;
                 NvmCtx.Channels[i].Frequency = 486300000 + i * 200000;
                 NvmCtx.Channels[i].DrRange.Value = ( DR_5 << 4 ) | DR_0;
                 NvmCtx.Channels[i].Band = 0;
