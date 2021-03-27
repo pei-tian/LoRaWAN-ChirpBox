@@ -87,3 +87,7 @@ RTE/
 !*.axf
 
 .vscode
+
+# do not ignore bin file in Debug/
+**/Debug/*
+!**/Debug/*.bin
