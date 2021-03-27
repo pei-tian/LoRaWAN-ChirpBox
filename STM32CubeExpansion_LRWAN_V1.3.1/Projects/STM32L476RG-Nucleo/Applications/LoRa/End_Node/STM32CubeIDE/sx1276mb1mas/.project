@@ -46,5 +46,10 @@
 			<type>2</type>
 			<location>D:/TP/Study/LoRaWAN-TP/STM32CubeExpansion_LRWAN_V1.3.1/Middlewares</location>
 		</link>
+		<link>
+			<name>startup</name>
+			<type>2</type>
+			<location>D:/TP/Study/LoRaWAN-TP/STM32CubeExpansion_LRWAN_V1.3.1/Projects/STM32L476RG-Nucleo/Applications/LoRa/End_Node/STM32CubeIDE/startup</location>
+		</link>
 	</linkedResources>
 </projectDescription>
