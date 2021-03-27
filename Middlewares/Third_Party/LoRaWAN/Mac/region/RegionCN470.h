@@ -63,7 +63,7 @@
  * Maximal datarate that can be used by the node
  */
 #define CN470_RX_MAX_DATARATE                       DR_5
-// TODO:
+
 /*!
  * Default datarate used by the node
  */
@@ -142,7 +142,6 @@
 /*!
  * Join accept delay 1
  */
-// #define CN470_JOIN_ACCEPT_DELAY1                    2000
 #define CN470_JOIN_ACCEPT_DELAY1                    5000
 
 /*!
