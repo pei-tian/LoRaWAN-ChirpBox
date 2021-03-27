@@ -75,7 +75,7 @@ uint32_t __attribute__((section(".data")))	TOS_NODE_ID = 0;
 
 uint8_t node_id_allocate;
 static uint8_t break_flag = 0;
-static uint16_t send_count = 0;
+volatile uint16_t send_count = 0;
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define LORAWAN_MAX_BAT   254
@@ -258,8 +258,8 @@ int main(void)
   MX_GPIO_Init();
 	MX_LPTIM1_Init();
   HAL_LPTIM_Start(&hlptim1);
-  init_GPS();
-  read_GPS();
+  // init_GPS();
+  // read_GPS();
 
   lora_rx_count_rece = 0;
   /* USER CODE BEGIN 1 */
@@ -438,10 +438,8 @@ static void LORA_RxData(lora_AppData_t *AppData)
 
 static void OnTxTimerEvent(void *context)
 {
-  PRINTF("OnTxTimerEvent\n");
-  // uint8_t time_value = (rand() % 11) + 10;
-  uint8_t time_value = 10;
-  printf("time_value:%lu\n", time_value);
+  // send data per 10 seconds
+  uint8_t time_value = 5;
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
@@ -454,11 +452,15 @@ static int sensor_send(void)
   AppData.Port = LORAWAN_APP_PORT;
   uint32_t i = 0;
   send_count++;
-  TRACE_MSG("send:%lu\n", send_count);
-  // AppData.Buff[i++] = send_count >> 8;
-  // AppData.Buff[i++] = send_count;
-  // AppData.Buff[i++] = 0;
+  printf("send:%lu\n", send_count);
+  AppData.Buff[i++] = send_count >> 8;
+  AppData.Buff[i++] = send_count;
   AppData.Buff[i++] = 0xff;
+  AppData.Buff[i++] = 0xee;
+  AppData.Buff[i++] = 0xdd;
+  AppData.Buff[i++] = 0xcc;
+  AppData.Buff[i++] = 0xbb;
+  AppData.Buff[i++] = 0xaa;
   // AppData.Buff[i++] = TOS_NODE_ID >> 24;
   // AppData.Buff[i++] = TOS_NODE_ID >> 16;
   // AppData.Buff[i++] = TOS_NODE_ID >> 8;
@@ -474,18 +476,18 @@ static int sensor_send(void)
   // PRINTF("\n");
 
   LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE);
-  read_GPS();
-  HAL_Delay(20);
-  PRINTF("Tx_num:%d, %lu, %lu, %lu, %lu, %lu\n", Tx_num, tx_config_freq, chirp_time.chirp_date, chirp_time.chirp_hour, chirp_time.chirp_min, chirp_time.chirp_sec);
-  if (Tx_num<=256)
-  {
-    tx_config[Tx_num - 1].tx_num = Tx_num;
-    tx_config[Tx_num - 1].tx_freq = tx_config_freq;
-    tx_config[Tx_num - 1].chirp_hour = chirp_time.chirp_hour;
-    tx_config[Tx_num - 1].chirp_min = chirp_time.chirp_min;
-    tx_config[Tx_num - 1].chirp_sec = chirp_time.chirp_sec;
-    LL_FLASH_Program64s(RESET_FLASH_ADDRESS + (Tx_num - 1) * sizeof(LoRa_TX_CONFIG), (uint32_t *)(&tx_config[Tx_num - 1]), (sizeof(LoRa_TX_CONFIG)/ sizeof(uint32_t)));
-  }
+  // read_GPS();
+  // HAL_Delay(20);
+  // PRINTF("Tx_num:%d, %lu, %lu, %lu, %lu, %lu\n", Tx_num, tx_config_freq, chirp_time.chirp_date, chirp_time.chirp_hour, chirp_time.chirp_min, chirp_time.chirp_sec);
+  // if (Tx_num<=256)
+  // {
+  //   tx_config[Tx_num - 1].tx_num = Tx_num;
+  //   tx_config[Tx_num - 1].tx_freq = tx_config_freq;
+  //   tx_config[Tx_num - 1].chirp_hour = chirp_time.chirp_hour;
+  //   tx_config[Tx_num - 1].chirp_min = chirp_time.chirp_min;
+  //   tx_config[Tx_num - 1].chirp_sec = chirp_time.chirp_sec;
+  //   LL_FLASH_Program64s(RESET_FLASH_ADDRESS + (Tx_num - 1) * sizeof(LoRa_TX_CONFIG), (uint32_t *)(&tx_config[Tx_num - 1]), (sizeof(LoRa_TX_CONFIG)/ sizeof(uint32_t)));
+  // }
 
     return 0;
 }

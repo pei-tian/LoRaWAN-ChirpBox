@@ -194,7 +194,7 @@ static void McpsConfirm( McpsConfirm_t *mcpsConfirm )
 void lora_rx_count()
 {
   lora_rx_count_rece++;
-  TRACE_MSG("lora_rx_count_rece:%lu\n", lora_rx_count_rece);
+  printf("lora_rx_count_rece:%lu\n", lora_rx_count_rece);
 }
 
 /*!
