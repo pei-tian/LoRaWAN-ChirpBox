@@ -107,7 +107,7 @@ void HW_Init(void)
 
     // TraceInit();
 
-    BSP_sensor_Init();
+    // BSP_sensor_Init();
 
     McuInitialized = true;
   }
