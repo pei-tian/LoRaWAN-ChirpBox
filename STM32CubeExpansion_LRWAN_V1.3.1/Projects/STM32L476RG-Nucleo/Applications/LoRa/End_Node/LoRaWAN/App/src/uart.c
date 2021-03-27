@@ -124,14 +124,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     }
 }
 
-
-int fputc(int ch, FILE *f)
-{
-    while((USART2->ISR &0X40)==0);//Loop until the end of the transmit
-    USART2->TDR  = (uint8_t) ch;
-    return ch;
-}
-
 #if CHIRPBOX_LORAWAN
 
 int _read (int fd, char *pBuffer, int size)
