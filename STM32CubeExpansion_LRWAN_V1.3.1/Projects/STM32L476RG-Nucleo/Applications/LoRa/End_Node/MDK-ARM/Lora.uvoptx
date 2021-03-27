@@ -1236,7 +1236,7 @@
 
   <Group>
     <GroupName>Drivers/BSP/Components</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1256,7 +1256,7 @@
 
   <Group>
     <GroupName>Drivers/BSP/STM32L4xx_Nucleo</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1276,7 +1276,7 @@
 
   <Group>
     <GroupName>Drivers/BSP/sx1276mb1mas</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1632,7 +1632,7 @@
 
   <Group>
     <GroupName>Projects/End_Node</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
