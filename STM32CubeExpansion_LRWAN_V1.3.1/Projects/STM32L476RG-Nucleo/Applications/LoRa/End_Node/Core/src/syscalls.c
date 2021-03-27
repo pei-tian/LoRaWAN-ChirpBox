@@ -91,6 +91,8 @@ void _exit (int status)
 	while (1) {}		/* Make sure we hang here */
 }
 
+#if !CHIRPBOX_LORAWAN
+
 __attribute__((weak)) int _read(int file, char *ptr, int len)
 {
 	int DataIdx;
@@ -113,6 +115,7 @@ __attribute__((weak)) int _write(int file, char *ptr, int len)
 	}
 	return len;
 }
+#endif
 
 caddr_t _sbrk(int incr)
 {

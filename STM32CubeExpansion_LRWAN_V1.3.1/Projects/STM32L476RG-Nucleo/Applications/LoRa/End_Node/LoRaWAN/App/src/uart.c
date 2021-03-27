@@ -132,6 +132,29 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 
+#if CHIRPBOX_LORAWAN
+
+int _read (int fd, char *pBuffer, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		while((USART2->ISR&0X40)==0);
+		pBuffer[i] = USART2->RDR;
+	}
+	return size;
+}
+
+int _write (int fd, char *pBuffer, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		while((USART2->ISR&0X40)==0);
+		USART2->TDR = (uint8_t) pBuffer[i];
+	}
+	return size;
+}
+
+#endif
 
 void MX_GPIO_Init(void)
 {
