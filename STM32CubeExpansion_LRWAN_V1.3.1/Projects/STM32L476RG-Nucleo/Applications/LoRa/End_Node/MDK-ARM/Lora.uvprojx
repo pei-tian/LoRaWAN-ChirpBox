@@ -386,64 +386,9 @@
           <GroupName>Drivers/BSP/Components</GroupName>
           <Files>
             <File>
-              <FileName>HTS221_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\sx1276\sx1276.c</FilePath>
-            </File>
-            <File>
-              <FileName>HTS221_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/BSP/X_NUCLEO_IKS01A2</GroupName>
-          <Files>
-            <File>
-              <FileName>x_nucleo_iks01a2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_pressure.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_humidity.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_humidity.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_temperature.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_temperature.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -631,11 +576,6 @@
               <FilePath>..\Core\src\stm32l4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\debug.c</FilePath>
@@ -669,11 +609,6 @@
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
@@ -1269,31 +1204,6 @@
           <GroupName>Drivers/BSP/Components</GroupName>
           <Files>
             <File>
-              <FileName>HTS221_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\sx1276\sx1276.c</FilePath>
@@ -1344,36 +1254,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>HTS221_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/BSP/X_NUCLEO_IKS01A2</GroupName>
-          <Files>
-            <File>
-              <FileName>x_nucleo_iks01a2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_pressure.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_humidity.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_humidity.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_temperature.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_temperature.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1625,11 +1505,6 @@
               <FilePath>..\Core\src\stm32l4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\debug.c</FilePath>
@@ -1663,11 +1538,6 @@
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
@@ -2263,64 +2133,9 @@
           <GroupName>Drivers/BSP/Components</GroupName>
           <Files>
             <File>
-              <FileName>HTS221_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\sx1276\sx1276.c</FilePath>
-            </File>
-            <File>
-              <FileName>HTS221_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/BSP/X_NUCLEO_IKS01A2</GroupName>
-          <Files>
-            <File>
-              <FileName>x_nucleo_iks01a2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_pressure.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_humidity.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_humidity.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_temperature.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_temperature.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2572,11 +2387,6 @@
               <FilePath>..\Core\src\stm32l4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\debug.c</FilePath>
@@ -2610,11 +2420,6 @@
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
@@ -3210,31 +3015,6 @@
           <GroupName>Drivers/BSP/Components</GroupName>
           <Files>
             <File>
-              <FileName>HTS221_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\sx1276\sx1276.c</FilePath>
@@ -3285,36 +3065,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>HTS221_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/BSP/X_NUCLEO_IKS01A2</GroupName>
-          <Files>
-            <File>
-              <FileName>x_nucleo_iks01a2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_pressure.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_humidity.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_humidity.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_temperature.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_temperature.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3566,11 +3316,6 @@
               <FilePath>..\Core\src\stm32l4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\debug.c</FilePath>
@@ -3604,11 +3349,6 @@
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
@@ -4204,31 +3944,6 @@
           <GroupName>Drivers/BSP/Components</GroupName>
           <Files>
             <File>
-              <FileName>HTS221_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\sx1276\sx1276.c</FilePath>
@@ -4279,36 +3994,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>HTS221_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/BSP/X_NUCLEO_IKS01A2</GroupName>
-          <Files>
-            <File>
-              <FileName>x_nucleo_iks01a2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_pressure.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_humidity.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_humidity.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_temperature.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_temperature.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4560,11 +4245,6 @@
               <FilePath>..\Core\src\stm32l4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\debug.c</FilePath>
@@ -4598,11 +4278,6 @@
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
@@ -5198,31 +4873,6 @@
           <GroupName>Drivers/BSP/Components</GroupName>
           <Files>
             <File>
-              <FileName>HTS221_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS22HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>LPS25HB_Driver_HL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</FilePath>
-            </File>
-            <File>
               <FileName>sx1276.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\sx1276\sx1276.c</FilePath>
@@ -5273,36 +4923,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>HTS221_Driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/BSP/X_NUCLEO_IKS01A2</GroupName>
-          <Files>
-            <File>
-              <FileName>x_nucleo_iks01a2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_pressure.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_humidity.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_humidity.c</FilePath>
-            </File>
-            <File>
-              <FileName>x_nucleo_iks01a2_temperature.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\BSP\X_NUCLEO_IKS01A2\x_nucleo_iks01a2_temperature.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5554,11 +5174,6 @@
               <FilePath>..\Core\src\stm32l4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\debug.c</FilePath>
@@ -5592,11 +5207,6 @@
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LoRaWAN\App\src\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LoRaWAN\App\src\dataset.c</FilePath>
             </File>
             <File>
               <FileName>energest.c</FileName>
