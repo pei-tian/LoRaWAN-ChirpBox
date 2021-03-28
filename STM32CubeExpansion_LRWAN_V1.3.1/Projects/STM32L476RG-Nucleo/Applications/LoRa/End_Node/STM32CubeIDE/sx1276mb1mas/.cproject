@@ -55,7 +55,6 @@
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Middlewares/Third_Party/LoRaWAN/Mac&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Middlewares/Third_Party/LoRaWAN/Phy&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Middlewares/Third_Party/LoRaWAN/Utilities&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Drivers/BSP/Components/Common&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Drivers/BSP/sx1276mb1mas&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Drivers/BSP/Components/sx1276&quot;"/>
 									<listOptionValue builtIn="false" value="../../../../../../../../Middlewares/Third_Party/LoRaWAN/Patterns/Basic"/>
