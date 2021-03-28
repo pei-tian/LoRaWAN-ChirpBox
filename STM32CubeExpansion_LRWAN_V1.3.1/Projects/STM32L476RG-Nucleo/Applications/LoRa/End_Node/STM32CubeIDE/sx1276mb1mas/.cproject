@@ -37,9 +37,6 @@
 							<builder buildPath="${workspace_loc:/sx1276mb1mas}/Debug" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.556289705" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.196270257" name="MCU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
 								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.2119323466" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g3" valueType="enumerated"/>
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.includepaths.121269256" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.includepaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\TP\Study\LoRaWAN-TP\STM32CubeExpansion_LRWAN_V1.3.1\Middlewares\Third_Party\LoRaWAN\Patterns\Basic}&quot;"/>
-								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.1464890874" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
 							</tool>
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.314132551" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
@@ -59,9 +56,9 @@
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Middlewares/Third_Party/LoRaWAN/Phy&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Middlewares/Third_Party/LoRaWAN/Utilities&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Drivers/BSP/Components/Common&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Middlewares/Third_Party/LoRaWAN/Patterns/Basic&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Drivers/BSP/sx1276mb1mas&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../..\../../../../../../Drivers/BSP/Components/sx1276&quot;"/>
+									<listOptionValue builtIn="false" value="../../../../../../../../Middlewares/Third_Party/LoRaWAN/Patterns/Basic"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.1140905411" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="STM32L476xx"/>
