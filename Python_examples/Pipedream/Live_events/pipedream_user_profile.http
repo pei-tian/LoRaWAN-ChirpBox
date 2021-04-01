@@ -1,4 +1,6 @@
 # running with REST Client (https://marketplace.visualstudio.com/items?itemName=humao.rest-client) on Vscode
+# TODO:
+# 1. input api key (remove "<" and ">")
 
 curl 'https://api.pipedream.com/v1/sources/dc_lVuMA8E/event_summaries?expand=event' \
-  -H 'Authorization: Bearer <TODO: API_Key>'
+  -H 'Authorization: Bearer <api key>'
