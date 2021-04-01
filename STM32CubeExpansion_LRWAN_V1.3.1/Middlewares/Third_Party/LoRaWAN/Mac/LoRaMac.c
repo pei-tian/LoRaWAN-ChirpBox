@@ -809,7 +809,6 @@ static void OnRadioTxDone( void )
         MacCtx.MacCallbacks->MacProcessNotify( );
     }
 #if !defined(NO_MAC_PRINTF)
-    // PRINTNOW(); PRINTF("PHY txDone\n\r" );
     PRINTF("TxDone\n\r" );
 #endif
     #if ENERGEST_CONF_ON
@@ -882,7 +881,6 @@ static void OnRadioRxTimeout( void )
         MacCtx.MacCallbacks->MacProcessNotify( );
     }
 #if !defined(NO_MAC_PRINTF)
-    // PRINTNOW(); PRINTF("PHY rxTimeOut\n\r" );
     PRINTF("RxTimeOut\n\r" );
 #endif
 

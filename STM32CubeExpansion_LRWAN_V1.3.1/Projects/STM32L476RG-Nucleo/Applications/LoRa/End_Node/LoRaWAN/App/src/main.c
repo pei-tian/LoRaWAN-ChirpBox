@@ -352,14 +352,14 @@ static void Send(void *context)
   {
     PRINTF("LORA_Join\n");
     /*Not joined, try again later*/
-    lora_tx_rate(0);
+    lora_tx_rate(DR_0);
     LORA_Join();
     return;
   }
   else if(LORA_JoinStatus() == LORA_SET)
   {
     PRINTF("sensor_send\n");
-    lora_tx_rate(5);
+    lora_tx_rate(DR_5);
     sensor_send();
     return;
   }
@@ -439,7 +439,7 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   // send data per 10 seconds
-  uint8_t time_value = 5;
+  uint8_t time_value = 10;
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
