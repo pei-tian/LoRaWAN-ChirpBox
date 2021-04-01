@@ -1,10 +1,10 @@
 # TODO:
-# 1. input api key (remove "<" and ">")
+# 1. Replace PIPEDREAM_API_KEY
 
 import requests
 
 headers = {
-    'Authorization': 'Bearer <api key>',
+    'Authorization': 'Bearer PIPEDREAM_API_KEY',
 }
 
 response = requests.get('https://api.pipedream.com/v1/users/me', headers=headers)
