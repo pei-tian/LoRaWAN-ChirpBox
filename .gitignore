@@ -91,3 +91,5 @@ RTE/
 # do not ignore bin file in Debug/
 **/Debug/*
 # !**/Debug/*.bin
+
+**/.settings/*
