@@ -439,7 +439,7 @@ static void LORA_RxData(lora_AppData_t *AppData)
 static void OnTxTimerEvent(void *context)
 {
   // send data per 200 seconds
-  uint8_t time_value = 200;
+  uint8_t time_value = 5;
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
