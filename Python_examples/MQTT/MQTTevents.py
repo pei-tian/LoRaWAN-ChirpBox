@@ -5,6 +5,7 @@ TODO:
 """
 
 import paho.mqtt.client as mqtt
+import json
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -12,10 +13,12 @@ def on_connect(client, userdata, flags, rc):
    client.subscribe("application/2/#")
 
 def on_message(client, userdata, msg):
-   print(msg.topic+" "+str(msg.payload))
-   char = str(msg.payload)
-   # TODO: if in some condition, disconnect the client
-   # if char == 'x':
+   application_packets = json.loads(msg.payload.decode('utf-8'))
+   print(application_packets)
+
+   # TODO: in some condition, disconnect the client
+   # char = str(msg.payload)
+   # if char == 'xxx':
    #    client.disconnect()
 
 client = mqtt.Client()
