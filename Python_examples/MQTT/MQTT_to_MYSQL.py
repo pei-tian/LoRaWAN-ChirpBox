@@ -53,8 +53,6 @@ def create_table(host, user, password, port, database):
       """
       % (table_name))
 
-   # db.commit()
-
    db.close()
 
    return table_name
