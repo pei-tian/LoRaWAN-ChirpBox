@@ -25,5 +25,5 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 # MQTT host and port
-client.connect("127.0.0.1", 1883)
+client.connect("192.168.137.70", 1883)
 client.loop_forever()
