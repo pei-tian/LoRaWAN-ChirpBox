@@ -85,7 +85,10 @@ def on_message(client, userdata, msg):
    application_packets = json.loads(msg.payload.decode('utf-8'))
    utc_time = int(time.time())
    print(utc_time, application_packets)
-   application_packets_to_table(utc_time, application_packets)
+   try:
+      application_packets_to_table(utc_time, application_packets)
+   except:
+      pass
    # TODO: if in some condition, disconnect the client
    # char = str(msg.payload)
    # if char == 'xxx':
