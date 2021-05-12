@@ -495,7 +495,7 @@ void RegionCN470ComputeRxWindowParameters( int8_t datarate, uint8_t minRxSymbols
 
     // Get the datarate, perform a boundary check
     rxConfigParams->Datarate = MIN( datarate, CN470_RX_MAX_DATARATE );
-    // TODO:TP
+    // TODO:CHIRPBOX_LORAWAN
     rxConfigParams->Datarate = 5;
 
     rxConfigParams->Bandwidth = GetBandwidth( rxConfigParams->Datarate );
@@ -761,7 +761,7 @@ LoRaMacStatus_t RegionCN470NextChannel( NextChanParams_t* nextChanParams, uint8_
         nbEnabledChannels = CountNbOfEnabledChannels( nextChanParams->Datarate,
                                                     NvmCtx.ChannelsMask, NvmCtx.Channels,
                                                     NvmCtx.Bands, enabledChannels, &delayTx );
-        // TODO:TP
+        // TODO:CHIRPBOX_LORAWAN
         nbEnabledChannels = 8;
     }
     else
@@ -774,7 +774,7 @@ LoRaMacStatus_t RegionCN470NextChannel( NextChanParams_t* nextChanParams, uint8_
     {
         // We found a valid channel
         // *channel = enabledChannels[randr( 0, nbEnabledChannels - 1 )];
-        // TODO:TP
+        // TODO:CHIRPBOX_LORAWAN
         *time = 0;
         return LORAMAC_STATUS_OK;
     }

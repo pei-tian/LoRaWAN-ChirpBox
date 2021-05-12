@@ -14,6 +14,13 @@
 #define PRINTF_CHIRP(...)
 #endif
 
+// GPS
+#if CHIRPBOX_LORAWAN
+#ifndef GPS_DATA
+	#define GPS_DATA								0
+#endif
+#endif
+
 /*radio---------------------------------------------------------------------------*/
 #define REGION_CN470				// Frequency by country
 #define USE_MODEM_LORA				// Radio modem

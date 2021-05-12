@@ -1273,7 +1273,7 @@ void SX1276SetOpMode( uint8_t opMode )
 
         SX1276Write( REG_OPMODE, ( SX1276Read( REG_OPMODE ) & RF_OPMODE_MASK ) | opMode );
     }
-    // TODO:TP
+#if CHIRPBOX_LORAWAN
     #if ENERGEST_CONF_ON
         if( opMode == RF_OPMODE_SLEEP )
         {
@@ -1293,7 +1293,7 @@ void SX1276SetOpMode( uint8_t opMode )
             gpi_led_on(GPI_LED_1);
         }
     #endif
-
+#endif
 }
 
 void SX1276SetModem( RadioModems_t modem )

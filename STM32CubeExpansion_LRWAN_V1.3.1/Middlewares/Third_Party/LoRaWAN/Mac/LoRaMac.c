@@ -2423,7 +2423,7 @@ static LoRaMacStatus_t ScheduleTx( bool allowDelayedTx )
     nextChan.LastAggrTx = MacCtx.NvmCtx->LastTxDoneTime;
     // Select channel
     status = RegionNextChannel( MacCtx.NvmCtx->Region, &nextChan, &MacCtx.Channel, &dutyCycleTimeOff, &MacCtx.NvmCtx->AggregatedTimeOff );
-    // TODO:TP
+    // TODO:CHIRPBOX_LORAWAN
     MacCtx.Channel = randr( 0, 8 - 1 );
     if( status != LORAMAC_STATUS_OK )
     {
@@ -2445,7 +2445,7 @@ static LoRaMacStatus_t ScheduleTx( bool allowDelayedTx )
             return status;
         }
     }
-    // Compute Rx1 windows parameters:TODO:TP:MacCtx.NvmCtx->Region to LORAMAC_REGION_CN470
+    // Compute Rx1 windows parameters:TODO:CHIRPBOX_LORAWAN:MacCtx.NvmCtx->Region to LORAMAC_REGION_CN470
     RegionComputeRxWindowParameters(LORAMAC_REGION_CN470,
                                     RegionApplyDrOffset( LORAMAC_REGION_CN470, MacCtx.NvmCtx->MacParams.DownlinkDwellTime, MacCtx.NvmCtx->MacParams.ChannelsDatarate, MacCtx.NvmCtx->MacParams.Rx1DrOffset ),
                                     MacCtx.NvmCtx->MacParams.MinRxSymbols,
@@ -4695,7 +4695,7 @@ LoRaMacStatus_t LoRaMacMcpsRequest( McpsReq_t* mcpsRequest )
     // Apply the minimum possible datarate.
     // Some regions have limitations for the minimum datarate.
     datarate = MAX( datarate, ( int8_t )phyParam.Value );
-//   TODO:TP
+//   TODO:CHIRPBOX_LORAWAN
     MacCtx.NvmCtx->MacParams.ChannelsDatarate = datarate;
     if( readyToSend == true )
     {
