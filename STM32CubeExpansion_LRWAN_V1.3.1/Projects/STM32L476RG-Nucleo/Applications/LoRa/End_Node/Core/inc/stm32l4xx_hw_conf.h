@@ -192,16 +192,6 @@ extern "C" {
 #define USARTx_Priority 0
 #define USARTx_DMA_Priority 0
 
-
-#define USART3_TX_Pin GPIO_PIN_4
-#define USART3_TX_GPIO_Port GPIOC
-#define USART3_RX_Pin GPIO_PIN_5
-#define USART3_RX_GPIO_Port GPIOC
-/*gps-------------------*/
-#define GPS_TRIGGER_Pin GPIO_PIN_2
-#define GPS_TRIGGER_Port GPIOC
-#define GPS_PPS_Pin GPIO_PIN_12
-#define GPS_PPS_Port GPIOC
 /* --------------------------- DEBUG redefinition -------------------------------*/
 
 #define __HAL_RCC_DBGMCU_CLK_ENABLE()

@@ -41,9 +41,8 @@
 #ifndef __ENERGEST_H__
 #define __ENERGEST_H__
 
-#include "timer2.h"
-#include "test_config.h"
-
+// #include "sys/rtimer.h"
+#include "gpi/clocks.h"
 
 typedef struct {
     /*  unsigned long cumulative[2];*/
@@ -51,23 +50,29 @@ typedef struct {
 } energest_t;
 
 enum energest_type {
-    ENERGEST_TYPE_CPU,
-    ENERGEST_TYPE_LPM,
     ENERGEST_TYPE_IRQ,
     ENERGEST_TYPE_LED_GREEN,
     ENERGEST_TYPE_LED_YELLOW,
     ENERGEST_TYPE_LED_RED,
-    ENERGEST_TYPE_TRANSMIT,
-    ENERGEST_TYPE_LISTEN,
 
     ENERGEST_TYPE_FLASH_READ,
-    ENERGEST_TYPE_FLASH_WRITE,
 
     ENERGEST_TYPE_SENSORS,
 
     ENERGEST_TYPE_SERIAL,
 
-    ENERGEST_TYPE_MAX
+    ENERGEST_TYPE_CPU,
+    ENERGEST_TYPE_LPM,
+    ENERGEST_TYPE_STOP,
+    ENERGEST_TYPE_FLASH_WRITE_BANK1,
+    ENERGEST_TYPE_FLASH_WRITE_BANK2,
+    ENERGEST_TYPE_FLASH_ERASE,
+    ENERGEST_TYPE_FLASH_VERIFY,
+    ENERGEST_TYPE_TRANSMIT,
+    ENERGEST_TYPE_LISTEN,
+    ENERGEST_TYPE_GPS,
+
+    ENERGEST_TYPE_MAX,
 };
 
 void energest_init(void);
@@ -81,7 +86,7 @@ void energest_flush(void);
 #if ENERGEST_CONF_ON
 /*extern int energest_total_count;*/
 extern energest_t energest_total_time[ENERGEST_TYPE_MAX];
-extern uint16_t energest_current_time[ENERGEST_TYPE_MAX];
+extern Gpi_Fast_Tick_Native energest_current_time[ENERGEST_TYPE_MAX];
 extern unsigned char energest_current_mode[ENERGEST_TYPE_MAX];
 
 #ifdef ENERGEST_CONF_LEVELDEVICE_LEVELS
@@ -95,13 +100,13 @@ extern energest_t energest_leveldevice_current_leveltime[ENERGEST_CONF_LEVELDEVI
                             } while(0)
 
 #define ENERGEST_OFF(type) if(energest_current_mode[type] != 0) do {	\
-                            energest_total_time[type].current += (uint16_t)(gpi_tick_fast_native() - \
+                            energest_total_time[type].current += (Gpi_Fast_Tick_Native)(gpi_tick_fast_native() - \
                             energest_current_time[type]); \
                             energest_current_mode[type] = 0; \
                             } while(0)
 
 #define ENERGEST_OFF_LEVEL(type,level) do { \
-                                        energest_leveldevice_current_leveltime[level].current += (uint16_t)(gpi_tick_fast_native() - \
+                                        energest_leveldevice_current_leveltime[level].current += (Gpi_Fast_Tick_Native)(gpi_tick_fast_native() - \
                                         energest_current_time[type]); \
                                         energest_current_mode[type] = 0; \
                                         } while(0)

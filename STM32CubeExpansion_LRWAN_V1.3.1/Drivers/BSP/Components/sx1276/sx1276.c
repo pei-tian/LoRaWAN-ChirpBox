@@ -46,10 +46,6 @@
 #include "radio.h"
 #include "sx1276.h"
 #include "timeServer.h"
-#include "test_config.h"
-#include "energest.h"
-#include "uart.h"
-#include "timer2.h"
 extern TIM_HandleTypeDef htim2;
 extern LPTIM_HandleTypeDef hlptim1;
 
@@ -1283,18 +1279,18 @@ void SX1276SetOpMode( uint8_t opMode )
         {
             ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
             ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-            gpi_led_off(LED_TX);
-            gpi_led_off(LED_RX);
+            gpi_led_off(GPI_LED_2);
+            gpi_led_off(GPI_LED_1);
         }
         if( opMode == RFLR_OPMODE_TRANSMITTER )
         {
             ENERGEST_ON(ENERGEST_TYPE_TRANSMIT);
-            gpi_led_on(LED_TX);
+            gpi_led_on(GPI_LED_2);
         }
         if(( opMode == RFLR_OPMODE_RECEIVER ) | ( opMode == RFLR_OPMODE_RECEIVER_SINGLE ))
         {
             ENERGEST_ON(ENERGEST_TYPE_LISTEN);
-            gpi_led_on(LED_RX);
+            gpi_led_on(GPI_LED_1);
         }
     #endif
 

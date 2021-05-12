@@ -43,14 +43,23 @@ extern "C" {
 #include <stdbool.h>
 #include <stdint.h>
 #include "hw_conf.h"
-#include "hw_gpio.h"
-#include "hw_spi.h"
+// #include "hw_gpio.h"
+//#include "hw_spi.h"
 #include "hw_rtc.h"
 #include "hw_msp.h"
 #include "util_console.h"
 #include "debug.h"
 #include <stdio.h>
 
+#include "gpi/tools.h"
+
+#ifdef MX_CONFIG_FILE
+#include STRINGIFY(MX_CONFIG_FILE)
+#endif
+
+#if ENERGEST_CONF_ON
+#include GPI_PLATFORM_PATH(energest.h)
+#endif
 
 #ifdef __cplusplus
 }

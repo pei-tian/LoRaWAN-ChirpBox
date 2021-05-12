@@ -39,13 +39,15 @@
  */
 
 #include "energest.h"
-#include "test_config.h"
-#include "timer2.h"
+#ifdef MX_CONFIG_FILE
+	#include STRINGIFY(MX_CONFIG_FILE)
+#endif
+
 #if ENERGEST_CONF_ON
 
 int energest_total_count;
 energest_t energest_total_time[ENERGEST_TYPE_MAX];
-uint16_t energest_current_time[ENERGEST_TYPE_MAX];
+Gpi_Fast_Tick_Native energest_current_time[ENERGEST_TYPE_MAX];
 #ifdef ENERGEST_CONF_LEVELDEVICE_LEVELS
 energest_t energest_leveldevice_current_leveltime[ENERGEST_CONF_LEVELDEVICE_LEVELS];
 #endif
@@ -73,8 +75,8 @@ energest_type_time(int type)
     /* Note: does not support ENERGEST_CONF_LEVELDEVICE_LEVELS! */
     #ifndef ENERGEST_CONF_LEVELDEVICE_LEVELS
     if(energest_current_mode[type]) {
-    uint16_t now = gpi_tick_fast_native();
-    energest_total_time[type].current += (uint16_t)
+    Gpi_Fast_Tick_Native now = gpi_tick_fast_native();
+    energest_total_time[type].current += (Gpi_Fast_Tick_Native)
         (now - energest_current_time[type]);
     energest_current_time[type] = now;
     }
@@ -102,12 +104,12 @@ energest_type_set(int type, unsigned long val)
 void
 energest_flush(void)
 {
-    uint16_t now;
+    Gpi_Fast_Tick_Native now;
     int i;
     for(i = 0; i < ENERGEST_TYPE_MAX; i++) {
     if(energest_current_mode[i]) {
         now = gpi_tick_fast_native();
-        energest_total_time[i].current += (uint16_t)
+        energest_total_time[i].current += (Gpi_Fast_Tick_Native)
     (now - energest_current_time[i]);
         energest_current_time[i] = now;
     }

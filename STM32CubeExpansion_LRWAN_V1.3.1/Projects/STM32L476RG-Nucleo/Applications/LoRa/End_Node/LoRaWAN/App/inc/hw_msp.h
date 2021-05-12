@@ -169,6 +169,8 @@ void HW_AdcDeInit(void);
  */
 uint16_t HW_AdcReadChannel(uint32_t Channel);
 
+#if !CHIRPBOX_LORAWAN
+
 /*!
  * \brief Configures the sytem Clock at start-up
  *
@@ -176,7 +178,7 @@ uint16_t HW_AdcReadChannel(uint32_t Channel);
  * \retval none
  */
 void SystemClock_Config(void);
-
+#endif
 /**
   * @brief  Configure all GPIO's to Analog input to reduce the power consumption
   * @param  None

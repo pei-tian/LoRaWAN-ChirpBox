@@ -220,6 +220,7 @@ void HW_GpioInit(void)
   */
 
 
+#if !CHIRPBOX_LORAWAN
 
 void SystemClock_Config(void)
 {
@@ -273,6 +274,7 @@ void SystemClock_Config(void)
     while (1);
   }
 }
+#endif
 /**
   * @brief This function return a random seed
   * @note based on the device unique ID

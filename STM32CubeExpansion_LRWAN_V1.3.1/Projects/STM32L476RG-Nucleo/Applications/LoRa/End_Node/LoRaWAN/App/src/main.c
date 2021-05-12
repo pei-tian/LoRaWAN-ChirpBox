@@ -19,24 +19,19 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "hw.h"
-#include "gps.h"
 #include "low_power_manager.h"
 #include "lora.h"
 #include "bsp.h"
 #include "timeServer.h"
 #include "vcom.h"
 #include "version.h"
-#include "test_config.h"
-#include "evaluation.h"
-#include "timer2.h"
-#include "energest.h"
 #include "dataset.h"
-#include "uart.h"
 #include "trace_flash.h"
 #include <stdlib.h>
 #include "ll_flash.h"
 #include "flash_if.h"
 // #include <stdint.h>
+
 //**************************************************************************************************
 //***** Local (Static) Variables *******************************************************************
 /*---------------------------------------------------------------------------*/
@@ -150,7 +145,7 @@ extern LPTIM_HandleTypeDef hlptim1;
 
 uint8_t ECHO_END_FLAG = 0;
 
-LoRa_TX_CONFIG tx_config[256];
+// LoRa_TX_CONFIG tx_config[256];
 /*!
  * User application data structure
  */
@@ -254,7 +249,6 @@ int main(void)
 
   /* Configure the hardware*/
   HW_Init();
-  MX_USART2_UART_Init();
   MX_GPIO_Init();
 	MX_LPTIM1_Init();
   HAL_LPTIM_Start(&hlptim1);
@@ -443,7 +437,7 @@ static void OnTxTimerEvent(void *context)
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
-  TRACE_MSG("rx_time:%lu, tx_time: %lu\n", gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_LISTEN)));
+  // TRACE_MSG("rx_time:%lu, tx_time: %lu\n", gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_LISTEN)));
 }
 
 static int sensor_send(void)
@@ -468,28 +462,16 @@ static int sensor_send(void)
 
   AppData.BuffSize = i;
   PRINTF("sensor AppData\n");
-  // for ( i = 0; i < AppData.BuffSize; i++)
-  // {
-  //   /* code */
-  //   PRINTF("%d ", AppData.Buff[i]);
-  // }
-  // PRINTF("\n");
+  for ( i = 0; i < AppData.BuffSize; i++)
+  {
+    /* code */
+    PRINTF("%02x ", AppData.Buff[i]);
+  }
+  PRINTF("\n");
 
   LORA_send(&AppData, LORAWAN_DEFAULT_CONFIRM_MSG_STATE);
-  // read_GPS();
-  // HAL_Delay(20);
-  // PRINTF("Tx_num:%d, %lu, %lu, %lu, %lu, %lu\n", Tx_num, tx_config_freq, chirp_time.chirp_date, chirp_time.chirp_hour, chirp_time.chirp_min, chirp_time.chirp_sec);
-  // if (Tx_num<=256)
-  // {
-  //   tx_config[Tx_num - 1].tx_num = Tx_num;
-  //   tx_config[Tx_num - 1].tx_freq = tx_config_freq;
-  //   tx_config[Tx_num - 1].chirp_hour = chirp_time.chirp_hour;
-  //   tx_config[Tx_num - 1].chirp_min = chirp_time.chirp_min;
-  //   tx_config[Tx_num - 1].chirp_sec = chirp_time.chirp_sec;
-  //   LL_FLASH_Program64s(RESET_FLASH_ADDRESS + (Tx_num - 1) * sizeof(LoRa_TX_CONFIG), (uint32_t *)(&tx_config[Tx_num - 1]), (sizeof(LoRa_TX_CONFIG)/ sizeof(uint32_t)));
-  // }
 
-    return 0;
+  return 0;
 }
 
 static void LoraStartTx(TxEventType_t EventType)

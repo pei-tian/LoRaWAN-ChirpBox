@@ -46,10 +46,6 @@
 
 #include "LoRaMac.h"
 #include "util_console.h"
-#include "test_config.h"
-#include "energest.h"
-#include "timer2.h"
-#include "uart.h"
 extern TIM_HandleTypeDef htim2;
 extern LPTIM_HandleTypeDef hlptim1;
 
@@ -813,7 +809,7 @@ static void OnRadioTxDone( void )
 #endif
     #if ENERGEST_CONF_ON
         ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
-        gpi_led_off(LED_TX);
+        gpi_led_off(GPI_LED_2);
     #endif
 }
 
@@ -837,7 +833,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
 
     #if ENERGEST_CONF_ON
         ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-        gpi_led_off(LED_RX);
+        gpi_led_off(GPI_LED_1);
     #endif
 }
 
@@ -854,7 +850,7 @@ static void OnRadioTxTimeout( void )
 #endif
     #if ENERGEST_CONF_ON
         ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
-        gpi_led_off(LED_TX);
+        gpi_led_off(GPI_LED_2);
     #endif
 }
 
@@ -868,7 +864,7 @@ static void OnRadioRxError( void )
     }
     #if ENERGEST_CONF_ON
         ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-        gpi_led_off(LED_RX);
+        gpi_led_off(GPI_LED_1);
     #endif
 }
 
@@ -886,7 +882,7 @@ static void OnRadioRxTimeout( void )
 
     #if ENERGEST_CONF_ON
         ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-        gpi_led_off(LED_RX);
+        gpi_led_off(GPI_LED_1);
     #endif
 }
 
