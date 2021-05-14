@@ -240,20 +240,29 @@ int main(void)
 
   /* STM32 HAL library initialization*/
   HAL_Init();
-
+#if !CHIRPBOX_LORAWAN
   /* Configure the system clock*/
   SystemClock_Config();
+#else
+	gpi_platform_init();
+#endif
 
   /* Configure the debug mode*/
   DBG_Init();
 
   /* Configure the hardware*/
   HW_Init();
+#if !CHIRPBOX_LORAWAN
   MX_GPIO_Init();
 	MX_LPTIM1_Init();
   HAL_LPTIM_Start(&hlptim1);
-  // init_GPS();
-  // read_GPS();
+#endif
+
+#if GPS_DATA
+	GPS_Init();
+	GPS_On();
+	GPS_Waiting_PPS(10);
+#endif
 
   lora_rx_count_rece = 0;
   /* USER CODE BEGIN 1 */
@@ -437,7 +446,7 @@ static void OnTxTimerEvent(void *context)
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
-  // TRACE_MSG("rx_time:%lu, tx_time: %lu\n", gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_hybrid_to_ms(energest_type_time(ENERGEST_TYPE_LISTEN)));
+  // TRACE_MSG("rx_time:%lu, tx_time: %lu\n", gpi_tick_fast_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_fast_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)));
 }
 
 static int sensor_send(void)

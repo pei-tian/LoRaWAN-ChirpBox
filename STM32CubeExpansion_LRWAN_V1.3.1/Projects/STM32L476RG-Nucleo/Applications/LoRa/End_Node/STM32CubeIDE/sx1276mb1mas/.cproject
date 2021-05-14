@@ -88,6 +88,8 @@
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Inc"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../../../../../../Drivers/STM32L4xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
                                     								
                                 </option>
                                 								
@@ -315,7 +317,7 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
                         						
-                        <entry excluding="Tools/Inc/gpi/arm" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="LoRaWAN"/>
+                        <entry excluding="Tools/Src/gpi/arm|Tools/Inc/gpi/arm" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="LoRaWAN"/>
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
                         					
@@ -408,6 +410,8 @@
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Inc"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../../../../../../Drivers/STM32L4xx_HAL_Driver/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
                                     								
                                 </option>
                                 								
@@ -490,6 +494,8 @@
                                     <listOptionValue builtIn="false" value="../../../../../../../../Drivers/BSP/Components/lsm303agr"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
                                     								
                                 </option>
                                 								

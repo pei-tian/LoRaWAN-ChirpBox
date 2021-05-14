@@ -530,8 +530,8 @@ void gpi_platform_init(void)
     #if MX_FLASH_FILE
       MX_CRC_Init();
     #endif
-    MX_RTC_Init();
-    MX_I2C2_Init();
+    // MX_RTC_Init();
+    // MX_I2C2_Init();
 
     MX_TIM2_Init();
     HAL_TIM_OC_Start_IT(&htim2, TIM_CHANNEL_1);
@@ -540,9 +540,9 @@ void gpi_platform_init(void)
 		MX_LPTIM1_Init();
 		HAL_LPTIM_Start(&hlptim1);
 
-    MX_ADC1_Init();
+    // MX_ADC1_Init();
 
-    MX_IWDG_Init();
+    // MX_IWDG_Init();
 }
 
 void gpi_sleep()

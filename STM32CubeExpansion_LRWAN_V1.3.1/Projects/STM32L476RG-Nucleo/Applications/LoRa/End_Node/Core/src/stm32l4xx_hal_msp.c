@@ -50,6 +50,8 @@ void HAL_Delay(__IO uint32_t Delay)
   HW_RTC_DelayMs(Delay);   /* based on RTC */
 }
 
+#if !CHIRPBOX_LORAWAN
+
 /**
   * @brief  Initializes the MSP.
   * @retval None
@@ -67,7 +69,48 @@ void HAL_MspInit(void)
   /* PA13 and PA14 are configured in debug_init     */
   HW_GpioInit();
 }
+#else
+/**
+  * Initializes the Global MSP.
+  */
+void HAL_MspInit(void)
+{
+  /* USER CODE BEGIN MspInit 0 */
 
+  /* USER CODE END MspInit 0 */
+
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
+  __HAL_RCC_PWR_CLK_ENABLE();
+
+  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+
+  /* System interrupt init*/
+  /* MemoryManagement_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(MemoryManagement_IRQn, 0, 0);
+  /* BusFault_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(BusFault_IRQn, 0, 0);
+  /* UsageFault_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(UsageFault_IRQn, 0, 0);
+  /* SVCall_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SVCall_IRQn, 0, 0);
+  /* DebugMonitor_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DebugMonitor_IRQn, 0, 0);
+  /* PendSV_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+
+  /* USER CODE BEGIN MspInit 1 */
+  /* Ensure that HSI is wake-up system clock */
+  __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
+
+  /* Configure all IOs in analog input              */
+  /* Except PA143 and PA14 (SWCLK and SWD) for debug*/
+  /* PA13 and PA14 are configured in debug_init     */
+  HW_GpioInit();
+  /* USER CODE END MspInit 1 */
+}
+#endif
 
 
 /**
@@ -146,42 +189,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   HW_GPIO_IrqHandler(GPIO_Pin);
 }
-
-// /**
-//   * @brief  Gets IRQ number as a function of the GPIO_Pin.
-//   * @param  GPIO_Pin: Specifies the pins connected to the EXTI line.
-//   * @retval IRQ number
-//   */
-// IRQn_Type MSP_GetIRQn(uint16_t GPIO_Pin)
-// {
-//   switch (GPIO_Pin)
-//   {
-//     case GPIO_PIN_0:
-//       return EXTI0_IRQn;
-//     case GPIO_PIN_1:
-//       return EXTI1_IRQn;
-//     case GPIO_PIN_2:
-//       return EXTI2_IRQn;
-//     case GPIO_PIN_3:
-//       return EXTI3_IRQn;
-//     case GPIO_PIN_4:
-//       return EXTI4_IRQn;
-//     case GPIO_PIN_5:
-//     case GPIO_PIN_6:
-//     case GPIO_PIN_7:
-//     case GPIO_PIN_8:
-//     case GPIO_PIN_9:
-//       return EXTI9_5_IRQn;
-//     case GPIO_PIN_10:
-//     case GPIO_PIN_11:
-//     case GPIO_PIN_12:
-//     case GPIO_PIN_13:
-//     case GPIO_PIN_14:
-//     case GPIO_PIN_15:
-//     default:
-//       return EXTI15_10_IRQn;
-//   }
-// }
 
 /**
 * @brief TIM_Base MSP Initialization
@@ -267,4 +274,111 @@ void HAL_LPTIM_MspDeInit(LPTIM_HandleTypeDef* hlptim)
   }
 
 }
+
+
+void HAL_UART_MspInit(UART_HandleTypeDef* huart)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(huart->Instance==USART2)
+  {
+  /* USER CODE BEGIN USART2_MspInit 0 */
+
+  /* USER CODE END USART2_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_USART2_CLK_ENABLE();
+
+    /**USART2 GPIO Configuration
+    PA2     ------> USART2_TX
+    PA3     ------> USART2_RX
+    */
+    GPIO_InitStruct.Pin = USART_TX_Pin|USART_RX_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	/* USART2 interrupt Init */
+    HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
+
+  /* USER CODE BEGIN USART2_MspInit 1 */
+
+  /* USER CODE END USART2_MspInit 1 */
+  }
+  else if(huart->Instance==USART3)
+  {
+  /* USER CODE BEGIN USART3_MspInit 0 */
+
+  /* USER CODE END USART3_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_USART3_CLK_ENABLE();
+
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    /**USART3 GPIO Configuration
+    PC4     ------> USART3_TX
+    PC5     ------> USART3_RX
+    */
+    GPIO_InitStruct.Pin = USART3_TX_Pin|USART3_RX_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    /* USART3 interrupt Init */
+    HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);
+    HAL_NVIC_EnableIRQ(USART3_IRQn);
+  /* USER CODE BEGIN USART3_MspInit 1 */
+
+  /* USER CODE END USART3_MspInit 1 */
+  }
+}
+
+void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
+{
+
+  if(huart->Instance==USART2)
+  {
+  /* USER CODE BEGIN USART2_MspDeInit 0 */
+
+  /* USER CODE END USART2_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_USART2_CLK_DISABLE();
+
+    /**USART2 GPIO Configuration
+    PA2     ------> USART2_TX
+    PA3     ------> USART2_RX
+    */
+    HAL_GPIO_DeInit(GPIOA, USART_TX_Pin|USART_RX_Pin);
+
+    /* USART2 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
+  /* USER CODE BEGIN USART2_MspDeInit 1 */
+
+  /* USER CODE END USART2_MspDeInit 1 */
+  }
+  else if(huart->Instance==USART3)
+  {
+  /* USER CODE BEGIN USART3_MspDeInit 0 */
+
+  /* USER CODE END USART3_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_USART3_CLK_DISABLE();
+
+    /**USART3 GPIO Configuration
+    PC4     ------> USART3_TX
+    PC5     ------> USART3_RX
+    */
+    HAL_GPIO_DeInit(GPIOC, USART3_TX_Pin|USART3_RX_Pin);
+
+    /* USART3 interrupt DeInit */
+    HAL_NVIC_DisableIRQ(USART3_IRQn);
+  /* USER CODE BEGIN USART3_MspDeInit 1 */
+
+  /* USER CODE END USART3_MspDeInit 1 */
+  }
+}
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
