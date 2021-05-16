@@ -441,12 +441,14 @@ static void LORA_RxData(lora_AppData_t *AppData)
 
 static void OnTxTimerEvent(void *context)
 {
-  // send data per 200 seconds
+  // send data per 5 seconds
   uint8_t time_value = 5;
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
-  // TRACE_MSG("rx_time:%lu, tx_time: %lu\n", gpi_tick_fast_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_fast_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)));
+  #if ENERGEST_CONF_ON
+    printf("rx_time:%lu, tx_time: %lu\n", gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)));
+  #endif
 }
 
 static int sensor_send(void)

@@ -86,7 +86,7 @@ void energest_flush(void);
 #if ENERGEST_CONF_ON
 /*extern int energest_total_count;*/
 extern energest_t energest_total_time[ENERGEST_TYPE_MAX];
-extern Gpi_Fast_Tick_Native energest_current_time[ENERGEST_TYPE_MAX];
+extern Gpi_Slow_Tick_Native energest_current_time[ENERGEST_TYPE_MAX];
 extern unsigned char energest_current_mode[ENERGEST_TYPE_MAX];
 
 #ifdef ENERGEST_CONF_LEVELDEVICE_LEVELS
@@ -95,18 +95,18 @@ extern energest_t energest_leveldevice_current_leveltime[ENERGEST_CONF_LEVELDEVI
 
 #define ENERGEST_ON(type)  do { \
                             /*++energest_total_count;*/ \
-                            energest_current_time[type] = gpi_tick_fast_native(); \
+                            energest_current_time[type] = gpi_tick_slow_native(); \
                             energest_current_mode[type] = 1; \
                             } while(0)
 
 #define ENERGEST_OFF(type) if(energest_current_mode[type] != 0) do {	\
-                            energest_total_time[type].current += (Gpi_Fast_Tick_Native)(gpi_tick_fast_native() - \
+                            energest_total_time[type].current += (Gpi_Slow_Tick_Native)(gpi_tick_slow_native() - \
                             energest_current_time[type]); \
                             energest_current_mode[type] = 0; \
                             } while(0)
 
 #define ENERGEST_OFF_LEVEL(type,level) do { \
-                                        energest_leveldevice_current_leveltime[level].current += (Gpi_Fast_Tick_Native)(gpi_tick_fast_native() - \
+                                        energest_leveldevice_current_leveltime[level].current += (Gpi_Slow_Tick_Native)(gpi_tick_slow_native() - \
                                         energest_current_time[type]); \
                                         energest_current_mode[type] = 0; \
                                         } while(0)
