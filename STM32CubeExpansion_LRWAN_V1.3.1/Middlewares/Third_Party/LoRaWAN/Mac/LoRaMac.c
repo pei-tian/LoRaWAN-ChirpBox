@@ -2482,7 +2482,6 @@ static LoRaMacStatus_t ScheduleTx( bool allowDelayedTx )
     LoRaMacStatus_t retval = SecureFrame( MacCtx.NvmCtx->MacParams.ChannelsDatarate, MacCtx.Channel );
     if( retval != LORAMAC_STATUS_OK )
     {
-        PRINTF("retval\n");
         return retval;
     }
 

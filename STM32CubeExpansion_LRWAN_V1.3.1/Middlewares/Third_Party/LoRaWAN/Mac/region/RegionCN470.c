@@ -369,8 +369,7 @@ void RegionCN470InitDefaults( InitDefaultsParams_t* params )
             // 125 kHz channels
             for( uint8_t i = 0; i < CN470_MAX_NB_CHANNELS; i++ )
             {
-//                NvmCtx.Channels[i].Frequency = 470300000 + i * 200000;
-                // NvmCtx.Channels[i].Frequency = 486500000;
+                // NvmCtx.Channels[i].Frequency = 470300000 + i * 200000;
                 NvmCtx.Channels[i].Frequency = 486300000 + i * 200000;
                 NvmCtx.Channels[i].DrRange.Value = ( DR_5 << 4 ) | DR_0;
                 NvmCtx.Channels[i].Band = 0;
@@ -383,6 +382,26 @@ void RegionCN470InitDefaults( InitDefaultsParams_t* params )
             NvmCtx.ChannelsDefaultMask[3] = 0xFFFF;
             NvmCtx.ChannelsDefaultMask[4] = 0xFFFF;
             NvmCtx.ChannelsDefaultMask[5] = 0xFFFF;
+            #ifdef CHIRPBOX_LORAWAN
+                uint32_t UserFreq[8]={486300000, 486500000, 486700000, 486900000, 487100000, 487300000, 487500000, 487700000};
+                NvmCtx.ChannelsDefaultMask[0] = 0x0000;
+                NvmCtx.ChannelsDefaultMask[1] = 0x0000;
+                NvmCtx.ChannelsDefaultMask[2] = 0x0000;
+                NvmCtx.ChannelsDefaultMask[3] = 0x0000;
+                NvmCtx.ChannelsDefaultMask[4] = 0x0000;
+                NvmCtx.ChannelsDefaultMask[5] = 0x0000;
+
+                for(uint8_t i = 0,j = 0; i < 8; i++)
+                {
+                    j=(UserFreq[i]-486300000 )/200000;//channel ID
+
+                    NvmCtx.Channels[j].Frequency = UserFreq[i] ;
+                    NvmCtx.Channels[j].DrRange.Value=( DR_5 << 4 ) | DR_0;
+                    NvmCtx.Channels[j].Band = 0;
+
+                    NvmCtx.ChannelsDefaultMask[j/16]|=1<<(j%16);//corresponding mask position set as 1
+                }
+            #endif
 
             // Update the channels mask
             RegionCommonChanMaskCopy( NvmCtx.ChannelsMask, NvmCtx.ChannelsDefaultMask, 6 );
@@ -560,7 +579,6 @@ bool RegionCN470TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
 
     Radio.SetTxConfig( MODEM_LORA, phyTxPower, 0, 0, phyDr, 1, 8, false, true, 0, 0, false, 4000 );
     TVL1( PRINTF( "TX on freq %d Hz at DR %d\n\r", NvmCtx.Channels[txConfig->Channel].Frequency, txConfig->Datarate );)
-    PRINTF( "TX on freq %d Hz at DR %d\n\r", NvmCtx.Channels[txConfig->Channel].Frequency, txConfig->Datarate );
 
     // Setup maximum payload length of the radio driver
     Radio.SetMaxPayloadLength( MODEM_LORA, txConfig->PktLen );
