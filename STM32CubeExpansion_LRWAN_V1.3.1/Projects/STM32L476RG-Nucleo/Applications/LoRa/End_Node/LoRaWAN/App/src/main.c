@@ -32,6 +32,10 @@
 #include "flash_if.h"
 // #include <stdint.h>
 
+#include "fut-param-settings.h"
+#include "App_FUT.h"
+volatile chirpbox_fut_config __attribute((section (".FUTSettingSection"))) fut_config ={0xffff, 5};
+
 //**************************************************************************************************
 //***** Local (Static) Variables *******************************************************************
 /*---------------------------------------------------------------------------*/
@@ -123,8 +127,6 @@ volatile uint16_t send_count = 0;
  * User application data
  */
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE];
-
-#define MAX_TX_NUM                           0xFFFF
 
 /*!
  * User application data structure
@@ -336,7 +338,7 @@ static void Send(void *context)
   }
   else if(LORA_JoinStatus() == LORA_SET)
   {
-    if (send_count < MAX_TX_NUM)
+    if (send_count < fut_config.CUSTOM[FUT_MAX_SEND])
     {
       lora_tx_rate(DR_5);
       sensor_send();
@@ -418,8 +420,7 @@ static void LORA_RxData(lora_AppData_t *AppData)
 
 static void OnTxTimerEvent(void *context)
 {
-  // send data per 5 seconds
-  uint8_t time_value = 5;
+  uint8_t time_value = fut_config.CUSTOM[FUT_DATA_SEND_INTERVAL];
   TimerSetValue(&TxTimer, time_value * 1000);
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
