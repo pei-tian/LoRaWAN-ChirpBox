@@ -69,7 +69,6 @@ void node_id_restore(uint8_t *id)
 uint32_t __attribute__((section(".data")))	TOS_NODE_ID = 0;
 
 uint8_t node_id_allocate;
-static uint8_t break_flag = 0;
 volatile uint16_t send_count = 0;
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -125,27 +124,8 @@ volatile uint16_t send_count = 0;
  */
 static uint8_t AppDataBuff[LORAWAN_APP_DATA_BUFF_SIZE];
 
-// if the node has joined the network
-extern uint8_t join_flag;
+#define MAX_TX_NUM                           0xFFFF
 
-uint8_t 			test_round;
-
-// if the node is the sensor node/actuator node
-uint8_t sensor_node;
-
-uint16_t Tx_num = 0;
-
-uint8_t set_one_flag;
-extern uint16_t	beat;
-
-
-#define MAX_TX_NUM                           10
-
-extern LPTIM_HandleTypeDef hlptim1;
-
-uint8_t ECHO_END_FLAG = 0;
-
-// LoRa_TX_CONFIG tx_config[256];
 /*!
  * User application data structure
  */
@@ -254,8 +234,6 @@ int main(void)
   HW_Init();
 #if !CHIRPBOX_LORAWAN
   MX_GPIO_Init();
-	MX_LPTIM1_Init();
-  HAL_LPTIM_Start(&hlptim1);
 #endif
 
 #if GPS_DATA
@@ -299,8 +277,6 @@ int main(void)
         AppProcessRequest = LORA_RESET;
         /*Send*/
         Send(NULL);
-        if (break_flag == 1)
-          break;
       }
       if (LoraMacProcessRequest == LORA_SET)
       {
@@ -322,7 +298,6 @@ int main(void)
       ENABLE_IRQ();
   }
   // TRACE_MSG("send:%lu\n", send_count);
-  PRINTF("-----echo end-----\n");
 }
 
 
@@ -361,9 +336,11 @@ static void Send(void *context)
   }
   else if(LORA_JoinStatus() == LORA_SET)
   {
-    PRINTF("sensor_send\n");
-    lora_tx_rate(DR_5);
-    sensor_send();
+    if (send_count < MAX_TX_NUM)
+    {
+      lora_tx_rate(DR_5);
+      sensor_send();
+    }
     return;
   }
 }
@@ -447,17 +424,16 @@ static void OnTxTimerEvent(void *context)
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
   #if ENERGEST_CONF_ON
-    printf("rx_time:%lu, tx_time: %lu\n", gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)));
+    PRINTF("rx_time:%lu, tx_time: %lu\n", gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)));
   #endif
 }
 
 static int sensor_send(void)
 {
-  Tx_num++;
   AppData.Port = LORAWAN_APP_PORT;
   uint32_t i = 0;
   send_count++;
-  printf("send:%lu\n", send_count);
+  PRINTF("send:%lu\n", send_count);
   AppData.Buff[i++] = send_count >> 8;
   AppData.Buff[i++] = send_count;
   AppData.Buff[i++] = 0xff;
@@ -472,7 +448,6 @@ static int sensor_send(void)
   // AppData.Buff[i++] = TOS_NODE_ID;
 
   AppData.BuffSize = i;
-  PRINTF("sensor AppData\n");
   for ( i = 0; i < AppData.BuffSize; i++)
   {
     /* code */

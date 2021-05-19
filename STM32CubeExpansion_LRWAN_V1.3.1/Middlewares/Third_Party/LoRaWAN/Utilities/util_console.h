@@ -25,13 +25,18 @@
 #include "trace.h"
 #include "systime.h"
 #include <stdio.h>
+#include "hw.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 #if CHIRPBOX_LORAWAN
-#define PRINTF(...) printf(__VA_ARGS__)
+// #define PRINTF(...) printf(__VA_ARGS__)
+#define PRINTF(...)      do{                            \
+                                printf(__VA_ARGS__);    \
+                            }while(0)
 
 #define PPRINTF(...)     do { } while(0)
 
@@ -43,7 +48,7 @@ extern "C"
 #define PRINTNOW()      do{                                                           \
                           SysTime_t stime  =SysTimeGetMcuTime();                      \
                           TraceSend("%3ds%03d: ",stime.Seconds, stime.SubSeconds); \
-                         }while(0) 
+                         }while(0)
 #endif
 
 #define TVL1(X)    do{ if(VERBOSE_LEVEL>=VERBOSE_LEVEL_1) { X } }while(0);

@@ -34,10 +34,9 @@ static uint32_t OffModeDisable = 0;
 void LPM_SetOffMode(LPM_Id_t id, LPM_SetMode_t mode)
 {
   BACKUP_PRIMASK();
-  
+
   DISABLE_IRQ( );
-  
-  
+
   switch(mode)
   {
     case LPM_Disable:
@@ -53,7 +52,7 @@ void LPM_SetOffMode(LPM_Id_t id, LPM_SetMode_t mode)
     default:
       break;
   }
-  
+
   RESTORE_PRIMASK( );
 
   return;
@@ -62,10 +61,10 @@ void LPM_SetOffMode(LPM_Id_t id, LPM_SetMode_t mode)
 void LPM_SetStopMode(LPM_Id_t id, LPM_SetMode_t mode)
 {
   BACKUP_PRIMASK();
-  
+
   DISABLE_IRQ( );
-  
-  
+
+
   switch(mode)
   {
     case LPM_Disable:
@@ -97,14 +96,24 @@ void LPM_EnterLowPower(void)
     LPM_ExitSleepMode();
   }
   else
-  { 
+  {
     if( OffModeDisable )
     {
+      #if ENERGEST_CONF_ON
+          ENERGEST_ON(ENERGEST_TYPE_STOP);
+          ENERGEST_OFF(ENERGEST_TYPE_CPU);
+          gpi_led_off(GPI_LED_3);
+      #endif
       /**
        * STOP mode is required
        */
       LPM_EnterStopMode();
       LPM_ExitStopMode();
+      #if ENERGEST_CONF_ON
+          ENERGEST_OFF(ENERGEST_TYPE_STOP);
+          ENERGEST_ON(ENERGEST_TYPE_CPU);
+          gpi_led_on(GPI_LED_3);
+      #endif
     }
     else
     {
@@ -124,7 +133,7 @@ LPM_GetMode_t LPM_GetMode(void)
   LPM_GetMode_t mode_selected;
 
   BACKUP_PRIMASK();
-  
+
   DISABLE_IRQ( );
 
   if(StopModeDisable )

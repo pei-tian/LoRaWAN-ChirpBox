@@ -46,8 +46,6 @@
 
 #include "LoRaMac.h"
 #include "util_console.h"
-extern TIM_HandleTypeDef htim2;
-extern LPTIM_HandleTypeDef hlptim1;
 
 /*!
  * Maximum PHY layer payload size
@@ -795,6 +793,10 @@ struct
 
 static void OnRadioTxDone( void )
 {
+#if ENERGEST_CONF_ON
+    ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
+    gpi_led_off(GPI_LED_2);
+#endif
     TxDoneParams.CurTime = TimerGetCurrentTime( );
     MacCtx.LastTxSysTime = SysTimeGet( );
 
@@ -807,14 +809,14 @@ static void OnRadioTxDone( void )
 #if !defined(NO_MAC_PRINTF)
     PRINTF("TxDone\n\r" );
 #endif
-    #if ENERGEST_CONF_ON
-        ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
-        gpi_led_off(GPI_LED_2);
-    #endif
 }
 
 static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr )
 {
+#if ENERGEST_CONF_ON
+    ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
+    gpi_led_off(GPI_LED_1);
+#endif
     RxDoneParams.LastRxDone = TimerGetCurrentTime( );
     RxDoneParams.Payload = payload;
     RxDoneParams.Size = size;
@@ -830,15 +832,14 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
 #if !defined(NO_MAC_PRINTF)
     PRINTF("PHY rxDone\n\r" );
 #endif
-
-    #if ENERGEST_CONF_ON
-        ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-        gpi_led_off(GPI_LED_1);
-    #endif
 }
 
 static void OnRadioTxTimeout( void )
 {
+#if ENERGEST_CONF_ON
+    ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
+    gpi_led_off(GPI_LED_2);
+#endif
     LoRaMacRadioEvents.Events.TxTimeout = 1;
 
     if( ( MacCtx.MacCallbacks != NULL ) && ( MacCtx.MacCallbacks->MacProcessNotify != NULL ) )
@@ -848,28 +849,28 @@ static void OnRadioTxTimeout( void )
 #if !defined(NO_MAC_PRINTF)
     PRINTNOW(); PRINTF("PHY txTimeOut\n\r" );
 #endif
-    #if ENERGEST_CONF_ON
-        ENERGEST_OFF(ENERGEST_TYPE_TRANSMIT);
-        gpi_led_off(GPI_LED_2);
-    #endif
 }
 
 static void OnRadioRxError( void )
 {
+#if ENERGEST_CONF_ON
+    ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
+    gpi_led_off(GPI_LED_1);
+#endif
     LoRaMacRadioEvents.Events.RxError = 1;
 
     if( ( MacCtx.MacCallbacks != NULL ) && ( MacCtx.MacCallbacks->MacProcessNotify != NULL ) )
     {
         MacCtx.MacCallbacks->MacProcessNotify( );
     }
-    #if ENERGEST_CONF_ON
-        ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-        gpi_led_off(GPI_LED_1);
-    #endif
 }
 
 static void OnRadioRxTimeout( void )
 {
+#if ENERGEST_CONF_ON
+    ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
+    gpi_led_off(GPI_LED_1);
+#endif
     LoRaMacRadioEvents.Events.RxTimeout = 1;
 
     if( ( MacCtx.MacCallbacks != NULL ) && ( MacCtx.MacCallbacks->MacProcessNotify != NULL ) )
@@ -879,11 +880,6 @@ static void OnRadioRxTimeout( void )
 #if !defined(NO_MAC_PRINTF)
     PRINTF("RxTimeOut\n\r" );
 #endif
-
-    #if ENERGEST_CONF_ON
-        ENERGEST_OFF(ENERGEST_TYPE_LISTEN);
-        gpi_led_off(GPI_LED_1);
-    #endif
 }
 
 static void UpdateRxSlotIdleState( void )

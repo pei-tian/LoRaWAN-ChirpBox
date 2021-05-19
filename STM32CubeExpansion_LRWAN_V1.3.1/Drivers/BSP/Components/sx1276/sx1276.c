@@ -46,8 +46,6 @@
 #include "radio.h"
 #include "sx1276.h"
 #include "timeServer.h"
-extern TIM_HandleTypeDef htim2;
-extern LPTIM_HandleTypeDef hlptim1;
 
 /*
  * Local types definition
