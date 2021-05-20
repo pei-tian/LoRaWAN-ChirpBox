@@ -25,7 +25,7 @@
 #include "timeServer.h"
 #include "vcom.h"
 #include "version.h"
-#include "trace_flash.h"
+#include "API_trace_flash.h"
 #include <stdlib.h>
 #include "ll_flash.h"
 #include "flash_if.h"
@@ -33,7 +33,7 @@
 
 #include "fut-param-settings.h"
 #include "App_FUT.h"
-volatile chirpbox_fut_config __attribute((section (".FUTSettingSection"))) fut_config ={0xffff, 5};
+volatile chirpbox_fut_config __attribute((section (".FUTSettingSection"))) fut_config ={5, 5};
 
 //**************************************************************************************************
 //***** Local (Static) Variables *******************************************************************
@@ -341,6 +341,11 @@ static void Send(void *context)
     {
       lora_tx_rate(DR_5);
       sensor_send();
+    }
+    else
+    {
+      TimerStop(&TxTimer);
+      TRACE_MSG("rx_time:%lu, tx_time: %lu, cpu: %lu, stop: %lu\n", gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_CPU)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_STOP)));
     }
     return;
   }

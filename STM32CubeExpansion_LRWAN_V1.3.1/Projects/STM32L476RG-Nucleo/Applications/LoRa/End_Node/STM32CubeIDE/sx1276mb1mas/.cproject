@@ -90,6 +90,8 @@
                                     <listOptionValue builtIn="false" value="../../../../../../../../Drivers/STM32L4xx_HAL_Driver/Inc"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/ChirpBox_APIs/Inc"/>
                                     								
                                 </option>
                                 								
@@ -138,6 +140,8 @@
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/ChirpBox_APIs/Inc"/>
                                     								
                                 </option>
                                 								
@@ -416,6 +420,8 @@
                                     <listOptionValue builtIn="false" value="../../../../../../../../Drivers/STM32L4xx_HAL_Driver/Inc"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/ChirpBox_APIs/Inc"/>
                                     								
                                 </option>
                                 								
@@ -500,6 +506,8 @@
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Inc"/>
                                     									
                                     <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/Src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../../../LoRaWAN/Tools/ChirpBox_APIs/Inc"/>
                                     								
                                 </option>
                                 								

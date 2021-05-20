@@ -22,7 +22,6 @@
 #include "LoRaMac.h"
 #include "lora.h"
 #include "lora-test.h"
-#include "trace_flash.h"
 
 /*!
  *  Select either Device_Time_req or Beacon_Time_Req following LoRaWAN version
