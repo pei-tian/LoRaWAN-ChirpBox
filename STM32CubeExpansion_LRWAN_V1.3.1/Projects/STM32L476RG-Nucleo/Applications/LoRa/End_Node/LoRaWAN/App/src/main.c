@@ -25,7 +25,6 @@
 #include "timeServer.h"
 #include "vcom.h"
 #include "version.h"
-#include "dataset.h"
 #include "trace_flash.h"
 #include <stdlib.h>
 #include "ll_flash.h"
@@ -425,7 +424,7 @@ static void OnTxTimerEvent(void *context)
   TimerStart(&TxTimer);
   AppProcessRequest = LORA_SET;
   #if ENERGEST_CONF_ON
-    PRINTF("rx_time:%lu, tx_time: %lu\n", gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)));
+    PRINTF("rx_time:%lu, tx_time: %lu, cpu: %lu, stop: %lu\n", gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_LISTEN)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_TRANSMIT)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_CPU)), gpi_tick_slow_to_us(energest_type_time(ENERGEST_TYPE_STOP)));
   #endif
 }
 

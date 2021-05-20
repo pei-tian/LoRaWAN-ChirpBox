@@ -47,7 +47,7 @@
 
 int energest_total_count;
 energest_t energest_total_time[ENERGEST_TYPE_MAX];
-Gpi_Slow_Tick_Native energest_current_time[ENERGEST_TYPE_MAX];
+Gpi_Slow_Tick_Extended energest_current_time[ENERGEST_TYPE_MAX];
 #ifdef ENERGEST_CONF_LEVELDEVICE_LEVELS
 energest_t energest_leveldevice_current_leveltime[ENERGEST_CONF_LEVELDEVICE_LEVELS];
 #endif
@@ -75,8 +75,8 @@ energest_type_time(int type)
     /* Note: does not support ENERGEST_CONF_LEVELDEVICE_LEVELS! */
     #ifndef ENERGEST_CONF_LEVELDEVICE_LEVELS
     if(energest_current_mode[type]) {
-    Gpi_Slow_Tick_Native now = gpi_tick_slow_native();
-    energest_total_time[type].current += (Gpi_Slow_Tick_Native)
+    Gpi_Slow_Tick_Extended now = gpi_tick_slow_extended();
+    energest_total_time[type].current += (Gpi_Slow_Tick_Extended)
         (now - energest_current_time[type]);
     energest_current_time[type] = now;
     }
@@ -104,12 +104,12 @@ energest_type_set(int type, unsigned long val)
 void
 energest_flush(void)
 {
-    Gpi_Slow_Tick_Native now;
+    Gpi_Slow_Tick_Extended now;
     int i;
     for(i = 0; i < ENERGEST_TYPE_MAX; i++) {
     if(energest_current_mode[i]) {
-        now = gpi_tick_slow_native();
-        energest_total_time[i].current += (Gpi_Slow_Tick_Native)
+        now = gpi_tick_slow_extended();
+        energest_total_time[i].current += (Gpi_Slow_Tick_Extended)
     (now - energest_current_time[i]);
         energest_current_time[i] = now;
     }
