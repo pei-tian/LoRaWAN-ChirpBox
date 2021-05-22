@@ -49,7 +49,7 @@ implicitly determines number/size of possible var_args */
 #define TRACE_MSG_FAST(fmt, args...)												\
 		do {																		\
 				printf(fmt, ##args);												\
-                trace_store_msg(__FILENAME__, __LINE__, fmt, ##args);				\
+                trace_store_msg(fmt, ##args);										\
             } while (0)
 
 #define TRACE_FLUSH()																\
@@ -60,7 +60,7 @@ implicitly determines number/size of possible var_args */
 #define TRACE_MSG(fmt, args...)														\
 		do {																		\
 				printf(fmt, ##args);												\
-                trace_store_msg(__FILENAME__, __LINE__, fmt, ##args);				\
+                trace_store_msg(fmt, ##args);										\
                 trace_to_flash();													\
             } while (0)
 
