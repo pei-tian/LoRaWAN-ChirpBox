@@ -1,0 +1,15 @@
+{
+	"experiment_name": "LoRaWAN_10packet_5s",
+	"experiment_description": "Test LoRaWAN PDR",
+    "FUT_CUSTOM_list": "0x0000000A, 0x00000005",
+	"payload_length": 6,
+	"experiment_duration": 20,
+	"num_generated_packets": "True",
+	"num_received_packets": "True",
+	"e2e_latency": "True",
+	"tx_energy": "True",
+	"rx_energy": "True",
+	"start_address": "080FD000",
+	"end_address": "080FD800",
+	"experiment_run_bitmap": "1FFFFF"
+}
